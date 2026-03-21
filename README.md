@@ -7,51 +7,21 @@ Generate AI policy files for your repository.
 
 **[aipolicy.1mb.dev](https://aipolicy.1mb.dev)**
 
-Creates `AI_POLICY.md`, `AGENTS.md`, and `CLAUDE.md` with three presets (Permissive, Standard, Strict) and full customization. No install, no sign-up -- pick a preset, download the files.
+Creates `AI_POLICY.md`, `AGENTS.md`, and `CLAUDE.md` from three presets -- pick one, customize, download. Vanilla HTML/CSS/JS, no backend.
 
-## What it generates
-
-- **AI_POLICY.md** -- Declares how AI tools are used in your project. Covers usage policy, AI-generated code acceptance, CI/CD rules, training data opt-out, and contributor accountability.
-- **AGENTS.md** -- Instructions for AI coding agents working in your repo. Code style, testing requirements, restricted paths, review policy.
-- **CLAUDE.md** -- Claude Code configuration. References AGENTS.md rules. Can be a standalone file or symlink.
-
-## Quick links
-
-Presets load directly -- click, review, download:
+## Presets
 
 - [Permissive](https://aipolicy.1mb.dev/?preset=permissive) -- AI tools welcome, no restrictions
 - [Standard](https://aipolicy.1mb.dev/?preset=standard) -- AI tools with human review
 - [Strict](https://aipolicy.1mb.dev/?preset=strict) -- AI tools restricted, explicit approval
 
-Custom configurations work the same way. Configure once, share the URL:
-
-```text
-https://aipolicy.1mb.dev/?preset=standard&ai_usage=restricted&training_optout=yes
-```
-
 ## CLI
 
-Download preset files directly with curl or wget:
-
 ```bash
-# All three files (standard preset)
-curl -O https://aipolicy.1mb.dev/presets/standard/AI_POLICY.md
-curl -O https://aipolicy.1mb.dev/presets/standard/AGENTS.md
-curl -O https://aipolicy.1mb.dev/presets/standard/CLAUDE.md
-```
-
-```bash
-# Or with wget
-wget https://aipolicy.1mb.dev/presets/strict/{AI_POLICY,AGENTS,CLAUDE}.md
+curl -O https://aipolicy.1mb.dev/presets/standard/{AI_POLICY,AGENTS,CLAUDE}.md
 ```
 
 Available presets: `permissive`, `standard`, `strict`
-
-For custom configurations, use the web UI and download the ZIP.
-
-## Stack
-
-Vanilla HTML, CSS, and JavaScript. No framework, no build step, no backend. Hosted on GitHub Pages.
 
 ## License
 
