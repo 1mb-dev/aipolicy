@@ -19,6 +19,7 @@ export default [
         Uint8Array: 'readonly',
         Uint32Array: 'readonly',
         setTimeout: 'readonly',
+        requestAnimationFrame: 'readonly',
         URLSearchParams: 'readonly',
         console: 'readonly',
       },

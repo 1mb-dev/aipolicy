@@ -13,9 +13,7 @@ lint: ## Run all linters (html, css, js, md)
 	npm run lint
 
 lint-fix: ## Run linters with auto-fix where possible
-	npx stylelint 'public/styles/**/*.css' --fix
-	npx eslint public/scripts/ --fix
-	npx markdownlint-cli2 --fix '*.md' 'public/presets/**/*.md'
+	npm run lint-fix
 
 test: ## Test generated markdown across all preset combinations
 	npm run test:presets

@@ -184,7 +184,21 @@ function initCustomize() {
   toggle.addEventListener('click', () => {
     const expanded = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-    panel.classList.toggle('open', !expanded);
+    if (expanded) {
+      // Set explicit height first so transition has a start value
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+      requestAnimationFrame(() => { panel.style.maxHeight = ''; });
+      panel.classList.remove('open');
+    } else {
+      panel.classList.add('open');
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+    }
+  });
+
+  panel.addEventListener('transitionend', () => {
+    if (panel.classList.contains('open')) {
+      panel.style.maxHeight = 'none';
+    }
   });
 
   // Listen for changes on all option inputs
@@ -245,19 +259,20 @@ function loadFromUrl() {
 
 function initCopy() {
   const btn = document.querySelector('.copy-btn');
+  const label = btn?.querySelector('.copy-label');
   const status = document.getElementById('copy-status');
-  if (!btn) return;
+  if (!btn || !label) return;
 
   btn.addEventListener('click', async () => {
     const content = getFileContent(state.activeTab);
 
     try {
       await navigator.clipboard.writeText(content);
-      btn.textContent = 'Copied';
+      label.textContent = 'Copied';
       btn.classList.add('copied');
       if (status) status.textContent = 'File content copied to clipboard';
       setTimeout(() => {
-        btn.textContent = 'Copy';
+        label.textContent = 'Copy';
         btn.classList.remove('copied');
         if (status) status.textContent = '';
       }, 1500);
@@ -266,8 +281,8 @@ function initCopy() {
       const panel = document.getElementById(`panel-${state.activeTab}`);
       if (panel) {
         panel.select();
-        btn.textContent = 'Select all + copy manually';
-        setTimeout(() => { btn.textContent = 'Copy'; }, 3000);
+        label.textContent = 'Select all + copy manually';
+        setTimeout(() => { label.textContent = 'Copy'; }, 3000);
       }
     }
   });

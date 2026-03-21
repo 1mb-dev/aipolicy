@@ -40,7 +40,7 @@
   --transition-normal: 200ms ease;
 }
 
-/* Dark mode -- system preference */
+/* Dark mode -- system preference or explicit toggle */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --color-bg: #0f1117;
@@ -58,7 +58,6 @@
   }
 }
 
-/* Dark mode -- explicit toggle */
 [data-theme="dark"] {
   --color-bg: #0f1117;
   --color-surface: #1a1d27;
@@ -72,20 +71,6 @@
   --color-preview-text: #d1d5db;
   --color-success: #4ade80;
   --color-btn-text: #0f1117;
-}
-
-/* Light mode -- explicit toggle */
-[data-theme="light"] {
-  --color-bg: #fafafa;
-  --color-surface: #fff;
-  --color-text: #1a1a1a;
-  --color-text-muted: #6b7280;
-  --color-accent: #2563eb;
-  --color-accent-subtle: rgb(37 99 235 / 8%);
-  --color-accent-hover: #1d4ed8;
-  --color-border: #e5e7eb;
-  --color-preview-bg: #f3f4f6;
-  --color-preview-text: #1f2937;
 }
 
 /* ============================================
@@ -522,9 +507,7 @@ body {
   transition: max-height var(--transition-normal);
 }
 
-.customize-panel.open {
-  max-height: 2000px;
-}
+/* .open state managed by JS inline max-height for smooth transition */
 
 .customize-panel-inner {
   padding: var(--spacing-element) var(--spacing-element) var(--spacing-section);
