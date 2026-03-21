@@ -1,11 +1,20 @@
 <!DOCTYPE html>
+<!--
+    aipolicy.1mb.dev
+
+    Vanilla HTML, CSS, and JavaScript.
+    No frameworks. No build step. No tracking.
+
+    View humans.txt for credits.
+    View source -- it's meant to be read.
+-->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>aipolicy -- Generate AI Policy Files for Your Repository</title>
   <meta name="description" content="Create AI_POLICY.md, AGENTS.md, and CLAUDE.md for your repository. No install, no sign-up.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none';">
   <meta name="theme-color" content="#2563eb">
   <link rel="canonical" href="https://aipolicy.1mb.dev/">
 
@@ -27,6 +36,21 @@
   <meta name="twitter:title" content="aipolicy -- Generate AI Policy Files for Your Repository">
   <meta name="twitter:description" content="Create AI_POLICY.md, AGENTS.md, and CLAUDE.md for your repository. No install, no sign-up.">
   <meta name="twitter:image" content="https://aipolicy.1mb.dev/assets/og-image.png">
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "aipolicy",
+    "url": "https://aipolicy.1mb.dev",
+    "description": "Generate AI policy files (AI_POLICY.md, AGENTS.md, CLAUDE.md) for your repository.",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Organization", "name": "1mb-dev", "url": "https://github.com/1mb-dev" }
+  }
+  </script>
 
   <link rel="stylesheet" href="/styles/main.css">
 </head>
@@ -221,7 +245,7 @@
       </div>
 
       <!-- Zone 3: Convention Explainer -->
-      <section class="explainer" aria-label="About AI policy files">
+      <article class="explainer" aria-label="About AI policy files">
         <h2>What is AI_POLICY.md?</h2>
         <p>A convention for repositories to declare how AI tools interact with their codebase -- which tools are permitted, how AI-generated code is handled, and training data opt-out. Emerging across open-source projects.</p>
 
@@ -232,8 +256,8 @@
         <p>A stated policy is better than an ambiguous one. Contributors know what's expected. Maintainers have a governance reference point.</p>
 
         <h2>Convention references</h2>
-        <p>Based on Linux Foundation AI governance guidance, Anthropic's CLAUDE.md spec, and CNCF practices around AGENTS.md.</p>
-      </section>
+        <p>Based on Linux Foundation AI governance guidance, Anthropic's CLAUDE.md spec, and CNCF practices around AGENTS.md. See <a href="/conventions.json">conventions.json</a> for the full source list.</p>
+      </article>
     </main>
 
     <!-- Footer -->

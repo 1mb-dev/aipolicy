@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "description": "Well-known sources for AI policy file conventions. Maintained by aipolicy.1mb.dev.",
+  "last_updated": "2026-03-21",
+  "sources": [
+    {
+      "name": "AGENTS.md Specification",
+      "url": "https://agentsmd.org",
+      "type": "specification",
+      "description": "The AGENTS.md convention for AI coding agent instructions. Supported by Codex, Copilot, Cursor, and others."
+    },
+    {
+      "name": "Linux Foundation AI Policy Guidance",
+      "url": "https://www.linuxfoundation.org/research/ai-policy",
+      "type": "guidance",
+      "description": "Linux Foundation guidance on AI governance for open-source projects."
+    },
+    {
+      "name": "CNCF AI Practices",
+      "url": "https://www.cncf.io",
+      "type": "ecosystem",
+      "description": "CNCF ecosystem practices around AI policy adoption in cloud-native projects."
+    },
+    {
+      "name": "Kubewarden AI Policy",
+      "url": "https://github.com/kubewarden",
+      "type": "reference-implementation",
+      "description": "Early adopter of AI_POLICY.md in the CNCF ecosystem."
+    },
+    {
+      "name": "CloudNativePG AI Usage Policy",
+      "url": "https://github.com/cloudnative-pg/cloudnative-pg",
+      "type": "reference-implementation",
+      "description": "Structured AI usage policy with contributor guidelines."
+    },
+    {
+      "name": "Kyverno AI Policy",
+      "url": "https://github.com/kyverno/kyverno",
+      "type": "reference-implementation",
+      "description": "Comprehensive AI policy with disclosure requirements and enforcement."
+    }
+  ]
+}
