@@ -33,7 +33,7 @@ for (const [preset, opts] of Object.entries(PRESETS)) {
         drifted = true;
       }
       checked++;
-    } catch (e) {
+    } catch (_e) {
       console.error(`MISSING: public/presets/${preset}/${file}`);
       drifted = true;
     }

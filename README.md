@@ -22,7 +22,7 @@ Presets load directly -- click, review, download:
 
 Custom configurations work the same way. Configure once, share the URL:
 
-```
+```text
 https://aipolicy.1mb.dev/?preset=standard&ai_usage=restricted&training_optout=yes
 ```
 

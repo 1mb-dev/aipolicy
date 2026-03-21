@@ -18,10 +18,10 @@
     "validate": "node scripts/validate-presets.js"
   },
   "devDependencies": {
-    "eslint": "^9.0.0",
-    "htmlhint": "^1.1.0",
-    "markdownlint-cli2": "^0.17.0",
-    "stylelint": "^16.0.0",
-    "stylelint-config-standard": "^37.0.0"
+    "eslint": "^10.1.0",
+    "htmlhint": "^1.9.0",
+    "markdownlint-cli2": "^0.21.0",
+    "stylelint": "^17.5.0",
+    "stylelint-config-standard": "^40.0.0"
   }
 }

@@ -57,7 +57,7 @@ const mdlintBin = join(root, 'node_modules', '.bin', 'markdownlint-cli2');
 try {
   execFileSync(mdlintBin, [`${tmpDir}/**/*.md`], { stdio: 'inherit' });
   console.log('All generated markdown passes lint.');
-} catch (e) {
+} catch (_e) {
   console.error('Markdown lint failures in generated output. Fix templates.');
   rmSync(tmpDir, { recursive: true });
   process.exit(1);

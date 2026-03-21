@@ -118,7 +118,7 @@ You are responsible for every line of code you submit, regardless of how it was 
   } else if (opts.ai_code === 'requires-review') {
     md += `AI-generated code must be reviewed by a human maintainer before merging. Contributors should indicate when a pull request contains AI-generated code.\n\n`;
   } else if (opts.ai_code === 'requires-attribution') {
-    md += `AI-generated code must be clearly attributed. Use a commit trailer to indicate AI involvement:\n\n\`\`\`\nAssisted-by: <tool name>\n\`\`\`\n\nPull requests should note which portions were AI-generated and which tool was used.\n\n`;
+    md += `AI-generated code must be clearly attributed. Use a commit trailer to indicate AI involvement:\n\n\`\`\`text\nAssisted-by: <tool name>\n\`\`\`\n\nPull requests should note which portions were AI-generated and which tool was used.\n\n`;
   } else {
     md += `AI-generated code is not accepted. Pull requests identified as containing AI-generated code will not be merged.\n\n`;
   }
@@ -233,7 +233,7 @@ export function generateClaude(opts) {
 
 This file can be replaced with a symlink to AGENTS.md:
 
-\`\`\`
+\`\`\`bash
 ln -sf AGENTS.md CLAUDE.md
 \`\`\`
 

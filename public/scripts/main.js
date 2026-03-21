@@ -261,7 +261,7 @@ function initCopy() {
         btn.classList.remove('copied');
         if (status) status.textContent = '';
       }, 1500);
-    } catch (e) {
+    } catch (_e) {
       // Fallback: select text in the active panel
       const panel = document.getElementById(`panel-${state.activeTab}`);
       if (panel) {
@@ -412,7 +412,7 @@ function initDownload() {
           confirm.textContent = '';
         }, 2000);
       }
-    } catch (e) {
+    } catch (_e) {
       // Blob API unavailable -- fall back to copy buttons
       btn.style.display = 'none';
     }
@@ -441,7 +441,7 @@ function initTheme() {
   try {
     const val = localStorage.getItem('aipolicy-theme');
     if (val === 'light' || val === 'dark' || val === 'auto') stored = val;
-  } catch (e) {
+  } catch (_e) {
     // localStorage unavailable (private browsing) -- default to auto
   }
 
@@ -460,7 +460,7 @@ function initTheme() {
       } else {
         localStorage.setItem('aipolicy-theme', value);
       }
-    } catch (e) {
+    } catch (_e) {
       // localStorage unavailable -- theme still applied for this session
     }
   });
