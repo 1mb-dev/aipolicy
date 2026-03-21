@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.2.0 (2026-03-21)
+
+Template evolution informed by real-world policies.
+
+- Rename Permissive preset to Open
+- Add AI disclosure option (Assisted-by trailer: encouraged or required)
+- Standard: no AI-generated PR descriptions, no ping-pong during review
+- Strict: stronger enforcement, scope restrictions, contextual disclosure
+- All three tiers now produce distinct output in every section
+- Backwards compatible: ?preset=permissive URLs still work
+
 ## v1.1.0 (2026-03-21)
 
 Repo hygiene, self-adoption, and polish.
