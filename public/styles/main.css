@@ -400,8 +400,11 @@ body {
 .copy-btn {
   position: absolute;
   top: 8px;
-  right: 8px;
-  padding: 6px 14px;
+  right: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
   font-size: 0.75rem;
   font-family: var(--font-ui);
   background: var(--color-surface);
@@ -411,6 +414,7 @@ body {
   cursor: pointer;
   opacity: 0.85;
   transition: color var(--transition-fast), border-color var(--transition-fast), opacity var(--transition-fast);
+  z-index: 1;
 }
 
 .copy-btn:hover {
@@ -692,5 +696,24 @@ body {
 
   .header h1 {
     font-size: 1.25rem;
+  }
+
+  .copy-btn {
+    right: 12px;
+    padding: 5px 10px;
+  }
+
+  .tab-bar button {
+    padding: 10px;
+    font-size: 0.75rem;
+  }
+
+  .customize-panel-inner {
+    padding: 12px;
+  }
+
+  .preview-content {
+    min-height: 280px;
+    max-height: 360px;
   }
 }
