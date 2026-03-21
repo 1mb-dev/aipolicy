@@ -7,13 +7,25 @@ Generate AI policy files for your repository.
 
 **[aipolicy.1mb.dev](https://aipolicy.1mb.dev)**
 
-Creates `AI_POLICY.md`, `AGENTS.md`, and `CLAUDE.md` from three presets -- pick one, customize, download. Vanilla HTML/CSS/JS, no backend.
+Creates `AI_POLICY.md`, `AGENTS.md`, and `CLAUDE.md` with three presets and full customization. No install, no sign-up -- pick a preset, download the files.
+
+## What it generates
+
+- **AI_POLICY.md** -- How AI tools are used in your project: usage policy, code acceptance, CI/CD rules, training data opt-out.
+- **AGENTS.md** -- Instructions for AI coding agents: code style, testing, restricted paths, review policy.
+- **CLAUDE.md** -- Claude Code configuration. References AGENTS.md rules.
 
 ## Presets
 
 - [Permissive](https://aipolicy.1mb.dev/?preset=permissive) -- AI tools welcome, no restrictions
 - [Standard](https://aipolicy.1mb.dev/?preset=standard) -- AI tools with human review
 - [Strict](https://aipolicy.1mb.dev/?preset=strict) -- AI tools restricted, explicit approval
+
+Configure any option, share the URL:
+
+```text
+https://aipolicy.1mb.dev/?preset=standard&ai_usage=restricted&training_optout=yes
+```
 
 ## CLI
 
