@@ -26,6 +26,26 @@ Custom configurations work the same way. Configure once, share the URL:
 https://aipolicy.1mb.dev/?preset=standard&ai_usage=restricted&training_optout=yes
 ```
 
+## CLI
+
+Download preset files directly with curl or wget:
+
+```bash
+# All three files (standard preset)
+curl -O https://aipolicy.1mb.dev/presets/standard/AI_POLICY.md
+curl -O https://aipolicy.1mb.dev/presets/standard/AGENTS.md
+curl -O https://aipolicy.1mb.dev/presets/standard/CLAUDE.md
+```
+
+```bash
+# Or with wget
+wget https://aipolicy.1mb.dev/presets/strict/{AI_POLICY,AGENTS,CLAUDE}.md
+```
+
+Available presets: `permissive`, `standard`, `strict`
+
+For custom configurations, use the web UI and download the ZIP.
+
 ## Features
 
 - Three presets: Permissive, Standard, Strict
