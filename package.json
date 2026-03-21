@@ -12,9 +12,9 @@
     "lint:css": "stylelint 'public/styles/**/*.css'",
     "lint:js": "eslint public/scripts/",
     "lint:md": "markdownlint-cli2 '*.md' 'public/presets/**/*.md'",
-    "test": "npm run test:presets",
+    "test": "npm run test:presets && npm run validate",
     "test:presets": "node scripts/test-presets.js",
-    "check": "npm run lint && npm run test && npm run validate",
+    "check": "npm run lint && npm run test",
     "validate": "node scripts/validate-presets.js"
   },
   "devDependencies": {
