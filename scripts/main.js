@@ -112,11 +112,11 @@ You are responsible for every line of code you submit, regardless of how it was 
 `;
 
   if (opts.ai_usage === 'permitted') {
-    md += `AI-powered development tools may be used without restriction. Contributors are free to use AI assistants for code generation, review, and documentation.\n\n`;
+    md += `AI-powered development tools may be used without restriction for code generation, review, and documentation.\n\n`;
   } else if (opts.ai_usage === 'permitted-with-review') {
     md += `AI-powered development tools may be used, but AI-assisted contributions must go through the standard review process. Reviewers should be aware when a contribution involved AI assistance.\n\n`;
   } else if (opts.ai_usage === 'restricted') {
-    md += `AI tool usage is restricted. Contributors must obtain approval before using AI tools for contributions to this project. Approved use cases and tools will be documented below.\n\n`;
+    md += `AI tool usage is restricted. Obtain approval before using AI tools for contributions to this project.\n\n`;
   } else {
     md += `AI-powered development tools are not permitted for contributions to this project. All contributions must be human-authored.\n\n`;
   }
@@ -134,7 +134,7 @@ You are responsible for every line of code you submit, regardless of how it was 
   } else if (opts.ai_code === 'requires-attribution') {
     md += `AI-generated code must be clearly attributed. Use a commit trailer to indicate AI involvement:\n\n\`\`\`\nAssisted-by: <tool name>\n\`\`\`\n\nPull requests should note which portions were AI-generated and which tool was used.\n\n`;
   } else {
-    md += `AI-generated code is not accepted. All code contributions must be human-authored. Pull requests identified as containing AI-generated code will not be merged.\n\n`;
+    md += `AI-generated code is not accepted. Pull requests identified as containing AI-generated code will not be merged.\n\n`;
   }
 
   md += `## AI in CI/CD
@@ -146,7 +146,7 @@ You are responsible for every line of code you submit, regardless of how it was 
   if (opts.ai_cicd === 'permitted') {
     md += `AI tools may be used in CI/CD pipelines, including automated code analysis, test generation, and deployment assistance.\n\n`;
   } else if (opts.ai_cicd === 'restricted') {
-    md += `AI tools in CI/CD pipelines require explicit approval. Any AI-powered automation must be reviewed and approved by a maintainer before integration.\n\n`;
+    md += `AI tools in CI/CD pipelines require explicit maintainer approval before integration.\n\n`;
   } else {
     md += `AI tools are not permitted in CI/CD pipelines. All automated processes must use deterministic, non-AI tooling.\n\n`;
   }
@@ -165,7 +165,7 @@ You are responsible for every line of code you submit, regardless of how it was 
 
   md += `## Policy Evolution
 
-This policy will be reviewed as AI tooling and legal standards evolve. Contributors and maintainers are encouraged to propose updates via pull request.\n`;
+This policy will be updated as AI tooling and legal standards change. Propose updates via pull request.\n`;
 
   md += FOOTER;
   return md;
