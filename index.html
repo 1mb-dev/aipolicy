@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>aipolicy -- Generate AI Policy Files for Your Repository</title>
+  <meta name="description" content="Create AI_POLICY.md, AGENTS.md, and CLAUDE.md for your repository in seconds. Free, no install, no sign-up.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'none';">
+  <meta name="theme-color" content="#2563eb">
+  <link rel="canonical" href="https://aipolicy.1mb.dev/">
+
+  <!-- Favicons -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="aipolicy -- Generate AI Policy Files for Your Repository">
+  <meta property="og:description" content="Create AI_POLICY.md, AGENTS.md, and CLAUDE.md for your repository in seconds. Free, no install, no sign-up.">
+  <meta property="og:url" content="https://aipolicy.1mb.dev/">
+  <meta property="og:image" content="https://aipolicy.1mb.dev/assets/og-image.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="aipolicy -- Generate AI Policy Files for Your Repository">
+  <meta name="twitter:description" content="Create AI_POLICY.md, AGENTS.md, and CLAUDE.md for your repository in seconds. Free, no install, no sign-up.">
+  <meta name="twitter:image" content="https://aipolicy.1mb.dev/assets/og-image.png">
+
+  <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+  <a href="#presets" class="skip-link">Skip to content</a>
+
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-bar">
+        <a href="/" class="header-brand" aria-label="aipolicy home">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M14 2L3 7v8c0 7.2 4.7 13 11 14 6.3-1 11-6.8 11-14V7L14 2z" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <rect x="9.5" y="8" width="9" height="12" rx="1" fill="var(--color-surface)" stroke="currentColor" stroke-width="1.2"/>
+            <path d="M15 8v3.5h3.5" fill="var(--color-surface)" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+            <line x1="11.5" y1="14" x2="16.5" y2="14" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            <line x1="11.5" y1="16.5" x2="15" y2="16.5" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+          </svg>
+          <span class="header-brand-name">aipolicy</span>
+        </a>
+
+        <div class="theme-toggle" role="group" aria-label="Theme">
+          <button type="button" data-theme-value="light" aria-pressed="false" aria-label="Light theme">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <circle cx="8" cy="8" r="3"/>
+              <path d="M8 1.5v1M8 13.5v1M1.5 8h1M13.5 8h1M3.4 3.4l.7.7M11.9 11.9l.7.7M3.4 12.6l.7-.7M11.9 4.1l.7-.7"/>
+            </svg>
+          </button>
+          <button type="button" data-theme-value="auto" aria-pressed="true" aria-label="System theme">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <rect x="2" y="3" width="12" height="9" rx="1.5"/>
+              <line x1="5" y1="14" x2="11" y2="14"/>
+            </svg>
+          </button>
+          <button type="button" data-theme-value="dark" aria-pressed="false" aria-label="Dark theme">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M13.5 9.2A5.5 5.5 0 116.8 2.5a4.5 4.5 0 006.7 6.7z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <h1>Generate AI Policy Files</h1>
+      <p class="subtitle">AI_POLICY.md + AGENTS.md + CLAUDE.md for your repository. No install.</p>
+    </header>
+
+    <main>
+      <!-- Zone 1: Preset Selector -->
+      <div id="presets" class="presets" role="radiogroup" aria-label="Policy preset">
+        <button type="button" class="preset-card" role="radio" aria-checked="false" data-preset="permissive">
+          <div class="preset-label">Permissive</div>
+          <div class="preset-desc">Declares AI usage. No restrictions.</div>
+        </button>
+        <button type="button" class="preset-card" role="radio" aria-checked="true" data-preset="standard">
+          <div class="preset-label">Standard</div>
+          <div class="preset-desc">Sets boundaries. Requires human review.</div>
+        </button>
+        <button type="button" class="preset-card" role="radio" aria-checked="false" data-preset="strict">
+          <div class="preset-label">Strict</div>
+          <div class="preset-desc">Restricts AI tools. Explicit approval required.</div>
+        </button>
+      </div>
+
+      <!-- Zone 2: Preview + Configure -->
+      <section class="preview-section" aria-label="Generated files">
+        <div class="tab-bar" role="tablist" aria-label="Generated files">
+          <button type="button" role="tab" id="tab-policy" aria-selected="true" aria-controls="panel-policy">AI_POLICY.md</button>
+          <button type="button" role="tab" id="tab-agents" aria-selected="false" aria-controls="panel-agents" tabindex="-1">AGENTS.md</button>
+          <button type="button" role="tab" id="tab-claude" aria-selected="false" aria-controls="panel-claude" tabindex="-1">CLAUDE.md</button>
+        </div>
+
+        <div class="preview-pane">
+          <button type="button" class="copy-btn" aria-label="Copy file content">Copy</button>
+          <pre id="panel-policy" class="preview-content" role="tabpanel" aria-labelledby="tab-policy" tabindex="0"></pre>
+          <pre id="panel-agents" class="preview-content" role="tabpanel" aria-labelledby="tab-agents" tabindex="0" hidden></pre>
+          <pre id="panel-claude" class="preview-content" role="tabpanel" aria-labelledby="tab-claude" tabindex="0" hidden></pre>
+        </div>
+
+        <div aria-live="polite" class="sr-only" id="copy-status"></div>
+      </section>
+
+      <div class="actions-row">
+        <button type="button" class="customize-toggle" aria-expanded="false" aria-controls="customize-panel">
+          <span class="arrow" aria-hidden="true">&#9654;</span>
+          Customize
+        </button>
+        <div>
+          <button type="button" class="download-btn">Download All</button>
+          <span class="download-confirm" aria-live="polite"></span>
+        </div>
+      </div>
+
+      <div id="customize-panel" class="customize-panel">
+        <div class="customize-panel-inner">
+          <!-- AI Tool Usage -->
+          <div class="option-group">
+            <div class="option-group-title">AI Tool Usage</div>
+
+            <div class="option-row">
+              <label for="opt-ai-usage">Usage policy</label>
+              <span class="option-desc">How AI tools may be used in this project</span>
+              <select id="opt-ai-usage" data-param="ai_usage">
+                <option value="permitted">Permitted</option>
+                <option value="permitted-with-review" selected>Permitted with review</option>
+                <option value="restricted">Restricted</option>
+                <option value="prohibited">Prohibited</option>
+              </select>
+            </div>
+
+            <div class="option-row">
+              <label for="opt-ai-code">AI-generated code</label>
+              <span class="option-desc">Acceptance policy for AI-authored contributions</span>
+              <select id="opt-ai-code" data-param="ai_code">
+                <option value="accepted">Accepted</option>
+                <option value="requires-review" selected>Requires review</option>
+                <option value="requires-attribution">Requires attribution</option>
+                <option value="not-accepted">Not accepted</option>
+              </select>
+            </div>
+
+            <div class="option-row">
+              <label for="opt-ai-cicd">AI in CI/CD</label>
+              <span class="option-desc">Whether AI tools may run in automated pipelines</span>
+              <select id="opt-ai-cicd" data-param="ai_cicd">
+                <option value="permitted" selected>Permitted</option>
+                <option value="restricted">Restricted</option>
+                <option value="prohibited">Prohibited</option>
+              </select>
+            </div>
+
+            <div class="option-row">
+              <label for="opt-training-optout">Training data opt-out</label>
+              <span class="option-desc">Request that project code not be used for AI model training</span>
+              <select id="opt-training-optout" data-param="training_optout">
+                <option value="no">No</option>
+                <option value="yes" selected>Yes</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Agent Rules -->
+          <div class="option-group">
+            <div class="option-group-title">Agent Rules</div>
+
+            <div class="option-row">
+              <label for="opt-code-style">Code style enforcement</label>
+              <span class="option-desc">Style rules agents must follow (leave empty for none)</span>
+              <input type="text" id="opt-code-style" data-param="code_style" placeholder="e.g., Follow existing patterns, use project linter">
+            </div>
+
+            <div class="option-row">
+              <label for="opt-test-reqs">Test requirements</label>
+              <span class="option-desc">Testing expectations for AI-generated changes</span>
+              <select id="opt-test-reqs" data-param="test_reqs">
+                <option value="none">None</option>
+                <option value="recommended" selected>Recommended</option>
+                <option value="required-before-merge">Required before merge</option>
+              </select>
+            </div>
+
+            <div class="option-row">
+              <label for="opt-restricted-paths">Restricted paths</label>
+              <span class="option-desc">Paths agents should not modify (comma-separated)</span>
+              <input type="text" id="opt-restricted-paths" data-param="restricted_paths" placeholder="e.g., .env, secrets/, config/production.yml">
+            </div>
+
+            <div class="option-row">
+              <label for="opt-review-reqs">Review requirements</label>
+              <span class="option-desc">Human review policy for AI-generated pull requests</span>
+              <select id="opt-review-reqs" data-param="review_reqs">
+                <option value="none">None</option>
+                <option value="significant-changes" selected>Significant changes</option>
+                <option value="all-ai-prs">All AI-generated PRs</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- CLAUDE.md Handling -->
+          <div class="option-group">
+            <div class="option-group-title">CLAUDE.md Handling</div>
+
+            <div class="option-row">
+              <label for="opt-claude-handling">Generate as</label>
+              <span class="option-desc">Separate file or symlink instruction pointing to AGENTS.md</span>
+              <select id="opt-claude-handling" data-param="claude_handling">
+                <option value="separate" selected>Separate file</option>
+                <option value="symlink">Symlink instruction</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Zone 3: Convention Explainer -->
+      <section class="explainer" aria-label="About AI policy files">
+        <h2>What is AI_POLICY.md?</h2>
+        <p>A convention for repositories to declare how AI tools interact with their codebase. It covers which AI tools are permitted, how AI-generated code is handled, and whether the project opts out of training data collection. The convention is emerging across open-source projects as AI-assisted development becomes standard practice.</p>
+
+        <h2>Who's adopting this?</h2>
+        <p>A growing number of CNCF ecosystem projects and open-source maintainers are adding AI policy files. This tool tracks well-established policy guidelines and evolves its templates as the convention matures.</p>
+
+        <h2>Why add AI policy files?</h2>
+        <p>Clear AI policies reduce contributor confusion, establish governance expectations, and make your project's stance on AI tooling explicit. Whether permissive or restrictive, a stated policy is better than an ambiguous one.</p>
+
+        <h2>Convention references</h2>
+        <p>The AI policy file convention draws from Linux Foundation guidance on AI governance, Anthropic's CLAUDE.md specification for Claude Code, and emerging CNCF practices around AGENTS.md for AI coding assistants.</p>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>Built by <a href="https://github.com/1mb-dev">1mb-dev</a> &middot; keep building</p>
+      <p><a href="https://github.com/1mb-dev/aipolicy">GitHub</a> &middot; Conventions</p>
+    </footer>
+  </div>
+
+  <script type="module" src="/scripts/main.js"></script>
+</body>
+</html>

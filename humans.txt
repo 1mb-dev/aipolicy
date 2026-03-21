@@ -1,0 +1,7 @@
+/* TEAM */
+Name: 1mb-dev
+Site: https://1mb.dev
+
+/* TECHNOLOGY */
+HTML, CSS, JavaScript
+No frameworks. No build tools. Vanilla.

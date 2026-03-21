@@ -1,0 +1,20 @@
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .shield { fill: #2563eb; }
+    .file-bg { fill: #ffffff; }
+    .file-stroke { stroke: #ffffff; fill: none; stroke-width: 1.2; }
+    .line { stroke: #ffffff; opacity: 0.6; }
+    @media (prefers-color-scheme: dark) {
+      .shield { fill: #60a5fa; }
+      .file-bg { fill: #0f1117; }
+      .file-stroke { stroke: #0f1117; }
+      .line { stroke: #0f1117; }
+    }
+  </style>
+  <path class="shield" d="M16 1L3 7v9c0 8.3 5.4 15 13 16 7.6-1 13-7.7 13-16V7L16 1z"/>
+  <rect class="file-bg" x="10" y="8" width="10" height="14" rx="1.2"/>
+  <rect x="10" y="8" width="10" height="14" rx="1.2" fill="none" stroke="#2563eb" stroke-width="0.5" opacity="0.3"/>
+  <path class="file-stroke" d="M16.5 8v4h4"/>
+  <line class="line" x1="12.5" y1="15" x2="17.5" y2="15" stroke-width="1.2"/>
+  <line class="line" x1="12.5" y1="18" x2="16" y2="18" stroke-width="1.2"/>
+</svg>
