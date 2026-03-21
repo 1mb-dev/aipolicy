@@ -17,6 +17,7 @@
   --color-preview-bg: #f3f4f6;
   --color-preview-text: #1f2937;
   --color-success: #16a34a;
+  --color-btn-text: #ffffff;
 
   /* Typography */
   --font-ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
@@ -51,6 +52,8 @@
     --color-border: #2d3140;
     --color-preview-bg: #141720;
     --color-preview-text: #d1d5db;
+    --color-success: #4ade80;
+    --color-btn-text: #0f1117;
   }
 }
 
@@ -66,6 +69,8 @@
   --color-border: #2d3140;
   --color-preview-bg: #141720;
   --color-preview-text: #d1d5db;
+  --color-success: #4ade80;
+  --color-btn-text: #0f1117;
 }
 
 /* Light mode -- explicit toggle */
@@ -321,6 +326,7 @@ body {
   display: flex;
   border-bottom: 1px solid var(--color-border);
   margin-bottom: 0;
+  overflow-x: auto;
 }
 
 .tab-bar button {
@@ -378,8 +384,8 @@ body {
 }
 
 .preview-content:focus {
-  outline: none;
-  box-shadow: inset 0 0 0 1px var(--color-accent);
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
 }
 
 .copy-btn {
@@ -460,7 +466,7 @@ body {
 .download-btn {
   padding: 10px 20px;
   background: var(--color-accent);
-  color: #ffffff;
+  color: var(--color-btn-text);
   border: none;
   border-radius: var(--radius);
   font-family: inherit;
@@ -501,7 +507,7 @@ body {
 }
 
 .customize-panel.open {
-  max-height: 800px;
+  max-height: 2000px;
 }
 
 .customize-panel-inner {
@@ -662,12 +668,6 @@ body {
   .download-btn {
     width: 100%;
     text-align: center;
-  }
-
-  .actions-row-left {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
   }
 
   .option-row select,

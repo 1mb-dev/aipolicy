@@ -61,6 +61,8 @@ function renderPresetCards() {
   }
 }
 
+const FILE_NAMES = { policy: 'AI_POLICY.md', agents: 'AGENTS.md', claude: 'CLAUDE.md' };
+
 function renderTabs() {
   const tabMap = { policy: 'tab-policy', agents: 'tab-agents', claude: 'tab-claude' };
   const panelMap = { policy: 'panel-policy', agents: 'panel-agents', claude: 'panel-claude' };
@@ -74,6 +76,11 @@ function renderTabs() {
     tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
     tab.setAttribute('tabindex', isActive ? '0' : '-1');
     panel.hidden = !isActive;
+  }
+
+  const copyBtn = document.querySelector('.copy-btn');
+  if (copyBtn) {
+    copyBtn.setAttribute('aria-label', `Copy ${FILE_NAMES[state.activeTab]} content`);
   }
 }
 

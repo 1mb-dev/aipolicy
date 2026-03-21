@@ -55,6 +55,7 @@
   <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
+  <noscript><p style="padding:2rem;text-align:center">This tool requires JavaScript to generate policy files.</p></noscript>
   <a href="#presets" class="skip-link">Skip to content</a>
 
   <div class="container">
@@ -151,8 +152,8 @@
 
             <div class="option-row">
               <label for="opt-ai-usage">Usage policy</label>
-              <span class="option-desc">How AI tools may be used in this project</span>
-              <select id="opt-ai-usage" data-param="ai_usage">
+              <span class="option-desc" id="desc-ai-usage">How AI tools may be used in this project</span>
+              <select id="opt-ai-usage" data-param="ai_usage" aria-describedby="desc-ai-usage">
                 <option value="permitted">Permitted</option>
                 <option value="permitted-with-review" selected>Permitted with review</option>
                 <option value="restricted">Restricted</option>
@@ -162,8 +163,8 @@
 
             <div class="option-row">
               <label for="opt-ai-code">AI-generated code</label>
-              <span class="option-desc">Acceptance policy for AI-authored contributions</span>
-              <select id="opt-ai-code" data-param="ai_code">
+              <span class="option-desc" id="desc-ai-code">Acceptance policy for AI-authored contributions</span>
+              <select id="opt-ai-code" data-param="ai_code" aria-describedby="desc-ai-code">
                 <option value="accepted">Accepted</option>
                 <option value="requires-review" selected>Requires review</option>
                 <option value="requires-attribution">Requires attribution</option>
@@ -173,8 +174,8 @@
 
             <div class="option-row">
               <label for="opt-ai-cicd">AI in CI/CD</label>
-              <span class="option-desc">Can AI tools run in automated pipelines</span>
-              <select id="opt-ai-cicd" data-param="ai_cicd">
+              <span class="option-desc" id="desc-ai-cicd">Can AI tools run in automated pipelines</span>
+              <select id="opt-ai-cicd" data-param="ai_cicd" aria-describedby="desc-ai-cicd">
                 <option value="permitted" selected>Permitted</option>
                 <option value="restricted">Restricted</option>
                 <option value="prohibited">Prohibited</option>
@@ -183,8 +184,8 @@
 
             <div class="option-row">
               <label for="opt-training-optout">Training data opt-out</label>
-              <span class="option-desc">Request that project code not be used for AI model training</span>
-              <select id="opt-training-optout" data-param="training_optout">
+              <span class="option-desc" id="desc-training-optout">Request that project code not be used for AI model training</span>
+              <select id="opt-training-optout" data-param="training_optout" aria-describedby="desc-training-optout">
                 <option value="no">No</option>
                 <option value="yes" selected>Yes</option>
               </select>
@@ -197,14 +198,14 @@
 
             <div class="option-row">
               <label for="opt-code-style">Code style enforcement</label>
-              <span class="option-desc">Style rules agents must follow (leave empty for none)</span>
-              <input type="text" id="opt-code-style" data-param="code_style" placeholder="e.g., Follow existing patterns, use project linter">
+              <span class="option-desc" id="desc-code-style">Style rules agents must follow (leave empty for none)</span>
+              <input type="text" id="opt-code-style" data-param="code_style" aria-describedby="desc-code-style" placeholder="e.g., Follow existing patterns, use project linter">
             </div>
 
             <div class="option-row">
               <label for="opt-test-reqs">Test requirements</label>
-              <span class="option-desc">Testing expectations for AI-generated changes</span>
-              <select id="opt-test-reqs" data-param="test_reqs">
+              <span class="option-desc" id="desc-test-reqs">Testing expectations for AI-generated changes</span>
+              <select id="opt-test-reqs" data-param="test_reqs" aria-describedby="desc-test-reqs">
                 <option value="none">None</option>
                 <option value="recommended" selected>Recommended</option>
                 <option value="required-before-merge">Required before merge</option>
@@ -213,14 +214,14 @@
 
             <div class="option-row">
               <label for="opt-restricted-paths">Restricted paths</label>
-              <span class="option-desc">Paths agents should not modify (comma-separated)</span>
-              <input type="text" id="opt-restricted-paths" data-param="restricted_paths" placeholder="e.g., .env, secrets/, config/production.yml">
+              <span class="option-desc" id="desc-restricted-paths">Paths agents should not modify (comma-separated)</span>
+              <input type="text" id="opt-restricted-paths" data-param="restricted_paths" aria-describedby="desc-restricted-paths" placeholder="e.g., .env, secrets/, config/production.yml">
             </div>
 
             <div class="option-row">
               <label for="opt-review-reqs">Review requirements</label>
-              <span class="option-desc">Human review policy for AI-generated pull requests</span>
-              <select id="opt-review-reqs" data-param="review_reqs">
+              <span class="option-desc" id="desc-review-reqs">Human review policy for AI-generated pull requests</span>
+              <select id="opt-review-reqs" data-param="review_reqs" aria-describedby="desc-review-reqs">
                 <option value="none">None</option>
                 <option value="significant-changes" selected>Significant changes</option>
                 <option value="all-ai-prs">All AI-generated PRs</option>
@@ -234,8 +235,8 @@
 
             <div class="option-row">
               <label for="opt-claude-handling">Generate as</label>
-              <span class="option-desc">Separate file or symlink instruction pointing to AGENTS.md</span>
-              <select id="opt-claude-handling" data-param="claude_handling">
+              <span class="option-desc" id="desc-claude-handling">Separate file or symlink instruction pointing to AGENTS.md</span>
+              <select id="opt-claude-handling" data-param="claude_handling" aria-describedby="desc-claude-handling">
                 <option value="separate" selected>Separate file</option>
                 <option value="symlink">Symlink instruction</option>
               </select>
