@@ -99,7 +99,11 @@ function generateAiPolicy(opts) {
 
   let md = `# AI Policy
 
-This document declares how AI tools are used in this project.
+This document declares how AI tools are used in this project and what is expected of contributors who use them.
+
+## Accountability
+
+You are responsible for every line of code you submit, regardless of how it was produced. If you use AI tools, you must review, understand, and verify all output before committing it.
 
 ## AI Tool Usage
 
@@ -124,13 +128,13 @@ This document declares how AI tools are used in this project.
 `;
 
   if (opts.ai_code === 'accepted') {
-    md += `AI-generated code is accepted in this project. No special attribution or review process is required beyond the standard contribution workflow.\n\n`;
+    md += `AI-generated code is accepted. No special attribution or review process is required beyond the standard contribution workflow.\n\n`;
   } else if (opts.ai_code === 'requires-review') {
-    md += `AI-generated code is accepted but must be reviewed by a human maintainer before merging. Contributors should indicate when a pull request contains AI-generated code.\n\n`;
+    md += `AI-generated code must be reviewed by a human maintainer before merging. Contributors should indicate when a pull request contains AI-generated code.\n\n`;
   } else if (opts.ai_code === 'requires-attribution') {
-    md += `AI-generated code is accepted but must be clearly attributed. Pull requests containing AI-generated code should note which portions were AI-generated and which tool was used.\n\n`;
+    md += `AI-generated code must be clearly attributed. Use a commit trailer to indicate AI involvement:\n\n\`\`\`\nAssisted-by: <tool name>\n\`\`\`\n\nPull requests should note which portions were AI-generated and which tool was used.\n\n`;
   } else {
-    md += `AI-generated code is not accepted in this project. All code contributions must be human-authored. Pull requests identified as containing AI-generated code will not be merged.\n\n`;
+    md += `AI-generated code is not accepted. All code contributions must be human-authored. Pull requests identified as containing AI-generated code will not be merged.\n\n`;
   }
 
   md += `## AI in CI/CD
@@ -142,7 +146,7 @@ This document declares how AI tools are used in this project.
   if (opts.ai_cicd === 'permitted') {
     md += `AI tools may be used in CI/CD pipelines, including automated code analysis, test generation, and deployment assistance.\n\n`;
   } else if (opts.ai_cicd === 'restricted') {
-    md += `AI tools in CI/CD pipelines require explicit approval. Any AI-powered automation must be reviewed and approved by a maintainer before integration into the pipeline.\n\n`;
+    md += `AI tools in CI/CD pipelines require explicit approval. Any AI-powered automation must be reviewed and approved by a maintainer before integration.\n\n`;
   } else {
     md += `AI tools are not permitted in CI/CD pipelines. All automated processes must use deterministic, non-AI tooling.\n\n`;
   }
@@ -154,10 +158,14 @@ This document declares how AI tools are used in this project.
 `;
 
   if (optout) {
-    md += `This project requests that its code not be used for AI model training. This preference should be respected by AI tool providers and data collection services.\n`;
+    md += `This project requests that its code not be used for AI model training. This preference should be respected by AI tool providers and data collection services.\n\n`;
   } else {
-    md += `This project does not opt out of AI training data collection. Standard platform terms apply.\n`;
+    md += `This project does not opt out of AI training data collection. Standard platform terms apply.\n\n`;
   }
+
+  md += `## Policy Evolution
+
+This policy will be reviewed as AI tooling and legal standards evolve. Contributors and maintainers are encouraged to propose updates via pull request.\n`;
 
   md += FOOTER;
   return md;
@@ -171,45 +179,62 @@ function generateAgents(opts) {
 
   let md = `# Agents
 
-Rules and guidelines for AI coding agents working in this repository.
+Instructions for AI coding agents working in this repository.
 
-## General
+## Rules
 
-- Follow existing code conventions and patterns
-- Do not modify files outside the scope of the assigned task
-- Ask for clarification rather than making assumptions about ambiguous requirements
+- Follow existing code conventions and patterns in the codebase
+- Do not modify files outside the scope of the current task
+- Prefer editing existing files over creating new ones
+- Do not add dependencies without explicit approval
+- Ask for clarification when requirements are ambiguous
 `;
 
   if (codeStyle) {
     md += `\n## Code Style\n\n${codeStyle}\n`;
   }
 
-  md += `\n## Testing\n\n**Requirement:** ${testLabel}\n\n`;
+  md += `
+## Setup
+
+<!-- Replace with your project's actual commands -->
+<!-- npm install / go build / make / etc. -->
+
+## Testing
+
+**Requirement:** ${testLabel}
+
+`;
 
   if (opts.test_reqs === 'none') {
-    md += `No specific testing requirements for AI-generated changes. Follow the project's existing testing conventions if any.\n`;
+    md += `Follow the project's existing testing conventions.\n`;
   } else if (opts.test_reqs === 'recommended') {
-    md += `Tests are recommended for AI-generated changes. Include tests for new functionality and verify that existing tests pass before submitting.\n`;
+    md += `Include tests for new functionality. Verify existing tests pass before submitting.\n`;
   } else {
-    md += `Tests are required for all AI-generated changes. Pull requests without adequate test coverage will not be merged. Run the full test suite before submitting.\n`;
+    md += `Tests are required for all changes. Run the full test suite before submitting. Pull requests without adequate test coverage will not be merged.\n`;
   }
 
   if (restrictedPaths) {
     const paths = restrictedPaths.split(',').map(p => p.trim()).filter(Boolean);
-    md += `\n## Restricted Paths\n\nDo not modify the following files or directories:\n\n`;
+    md += `\n## Restricted Paths\n\nDo not read or modify:\n\n`;
     for (const p of paths) {
       md += `- \`${p}\`\n`;
     }
   }
 
-  md += `\n## Review\n\n**Requirement:** ${reviewLabel}\n\n`;
+  md += `
+## Review
+
+**Requirement:** ${reviewLabel}
+
+`;
 
   if (opts.review_reqs === 'none') {
-    md += `No special review requirements for AI-generated pull requests beyond the standard process.\n`;
+    md += `No special review requirements beyond the standard process.\n`;
   } else if (opts.review_reqs === 'significant-changes') {
-    md += `Pull requests with significant AI-generated changes require human review. Minor fixes and documentation updates may follow the standard process.\n`;
+    md += `Significant AI-generated changes require human review. Minor fixes and documentation updates may follow the standard process.\n`;
   } else {
-    md += `All AI-generated pull requests require human review before merging, regardless of scope or size.\n`;
+    md += `All AI-generated pull requests require human review before merging, regardless of scope.\n`;
   }
 
   md += FOOTER;
@@ -226,24 +251,20 @@ This file can be replaced with a symlink to AGENTS.md:
 ln -sf AGENTS.md CLAUDE.md
 \`\`\`
 
-The rules in AGENTS.md apply to Claude Code. No additional Claude-specific configuration is needed.
+All rules in AGENTS.md apply to Claude Code sessions.
 ${FOOTER}`;
   }
 
   let md = `# CLAUDE.md
 
-Configuration for Claude Code in this repository. See AGENTS.md for general agent rules.
-
-## Applies
-
-All rules from AGENTS.md apply to Claude Code sessions in this repository.
+Claude Code configuration. All rules from AGENTS.md apply.
 
 `;
 
   if (opts.test_reqs === 'required-before-merge') {
     md += `## Testing
 
-Run the full test suite before proposing changes. Do not submit pull requests with failing tests.
+Run the full test suite before proposing changes. Do not submit with failing tests.
 
 `;
   }
@@ -251,16 +272,16 @@ Run the full test suite before proposing changes. Do not submit pull requests wi
   if (opts.restricted_paths) {
     md += `## Restricted
 
-Do not read or modify files listed in the Restricted Paths section of AGENTS.md.
+Do not read or modify files listed under Restricted Paths in AGENTS.md.
 
 `;
   }
 
   md += `## Behavior
 
-- Prefer editing existing files over creating new ones
-- Keep changes minimal and focused on the task
-- Do not add dependencies without explicit approval
+- Keep changes minimal and focused
+- Verify your changes work before submitting
+- When uncertain, ask rather than assume
 `;
 
   md += FOOTER;
