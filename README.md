@@ -29,11 +29,19 @@ https://aipolicy.1mb.dev/?preset=standard&ai_usage=restricted&training_optout=ye
 
 ## CLI
 
+Download preset files directly:
+
 ```bash
-curl -O https://aipolicy.1mb.dev/presets/standard/{AI_POLICY,AGENTS,CLAUDE}.md
+curl -O https://aipolicy.1mb.dev/presets/standard/AI_POLICY.md
+curl -O https://aipolicy.1mb.dev/presets/standard/AGENTS.md
+curl -O https://aipolicy.1mb.dev/presets/standard/CLAUDE.md
 ```
 
-Available presets: `permissive`, `standard`, `strict`
+Available presets: `permissive`, `standard`, `strict`. For custom configurations, use the web UI and download the ZIP.
+
+## Contributing
+
+See [CONTRIBUTING.md](.github/CONTRIBUTING.md). Vanilla HTML, CSS, and JavaScript -- no framework, no build step.
 
 ## License
 
