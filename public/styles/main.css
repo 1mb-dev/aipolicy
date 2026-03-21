@@ -314,7 +314,6 @@ body {
   display: flex;
   border-bottom: 1px solid var(--color-border);
   margin-bottom: 0;
-  overflow-x: auto;
 }
 
 .tab-bar button {
