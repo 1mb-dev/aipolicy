@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Claude Code configuration. All rules from AGENTS.md apply.
+Instructions for Claude Code. All rules from AGENTS.md apply.
 
 ## Behavior
 
