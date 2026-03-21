@@ -1,5 +1,8 @@
 # aipolicy
 
+[![CI](https://github.com/1mb-dev/aipolicy/actions/workflows/ci.yml/badge.svg)](https://github.com/1mb-dev/aipolicy/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 Generate AI policy files for your repository.
 
 **[aipolicy.1mb.dev](https://aipolicy.1mb.dev)**
