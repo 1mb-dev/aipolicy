@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Generate static preset files for CLI downloads (curl/wget)
 // Run: node scripts/generate-presets.js
-// Output: presets/{permissive,standard,strict}/{AI_POLICY,AGENTS,CLAUDE}.md
+// Output: public/presets/{permissive,standard,strict}/{AI_POLICY,AGENTS,CLAUDE}.md
 
 import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
@@ -153,14 +153,14 @@ function generateClaude(opts) {
 
 // Generate all presets
 for (const [name, opts] of Object.entries(PRESETS)) {
-  const dir = join(root, 'presets', name);
+  const dir = join(root, 'public', 'presets', name);
   mkdirSync(dir, { recursive: true });
 
   writeFileSync(join(dir, 'AI_POLICY.md'), generateAiPolicy(opts));
   writeFileSync(join(dir, 'AGENTS.md'), generateAgents(opts));
   writeFileSync(join(dir, 'CLAUDE.md'), generateClaude(opts));
 
-  console.log(`Generated presets/${name}/`);
+  console.log(`Generated public/presets/${name}/`);
 }
 
 console.log('Done.');
