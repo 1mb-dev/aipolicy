@@ -100,9 +100,9 @@
 
         <div class="preview-pane">
           <button type="button" class="copy-btn" aria-label="Copy file content">Copy</button>
-          <pre id="panel-policy" class="preview-content" role="tabpanel" aria-labelledby="tab-policy" tabindex="0"></pre>
-          <pre id="panel-agents" class="preview-content" role="tabpanel" aria-labelledby="tab-agents" tabindex="0" hidden></pre>
-          <pre id="panel-claude" class="preview-content" role="tabpanel" aria-labelledby="tab-claude" tabindex="0" hidden></pre>
+          <textarea id="panel-policy" class="preview-content" role="tabpanel" aria-labelledby="tab-policy" aria-label="AI_POLICY.md content -- editable" spellcheck="false"></textarea>
+          <textarea id="panel-agents" class="preview-content" role="tabpanel" aria-labelledby="tab-agents" aria-label="AGENTS.md content -- editable" spellcheck="false" hidden></textarea>
+          <textarea id="panel-claude" class="preview-content" role="tabpanel" aria-labelledby="tab-claude" aria-label="CLAUDE.md content -- editable" spellcheck="false" hidden></textarea>
         </div>
 
         <div aria-live="polite" class="sr-only" id="copy-status"></div>

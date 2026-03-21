@@ -320,8 +320,14 @@ function renderPreview() {
   };
 
   for (const [key, el] of Object.entries(panels)) {
-    if (el) el.textContent = files[key];
+    if (el) el.value = files[key];
   }
+}
+
+// Read current content from the textarea (includes user edits)
+function getFileContent(key) {
+  const panel = document.getElementById(`panel-${key}`);
+  return panel ? panel.value : '';
 }
 
 function renderPresetCards() {
@@ -519,8 +525,7 @@ function initCopy() {
   if (!btn) return;
 
   btn.addEventListener('click', async () => {
-    const files = getGeneratedFiles();
-    const content = files[state.activeTab];
+    const content = getFileContent(state.activeTab);
 
     try {
       await navigator.clipboard.writeText(content);
@@ -536,11 +541,7 @@ function initCopy() {
       // Fallback: select text in the active panel
       const panel = document.getElementById(`panel-${state.activeTab}`);
       if (panel) {
-        const range = document.createRange();
-        range.selectNodeContents(panel);
-        const sel = window.getSelection();
-        sel.removeAllRanges();
-        sel.addRange(range);
+        panel.select();
         btn.textContent = 'Select all + copy manually';
         setTimeout(() => { btn.textContent = 'Copy'; }, 3000);
       }
@@ -661,11 +662,10 @@ function initDownload() {
   if (!btn) return;
 
   btn.addEventListener('click', () => {
-    const files = getGeneratedFiles();
     const zipFiles = [
-      { name: 'AI_POLICY.md', content: files.policy },
-      { name: 'AGENTS.md', content: files.agents },
-      { name: 'CLAUDE.md', content: files.claude },
+      { name: 'AI_POLICY.md', content: getFileContent('policy') },
+      { name: 'AGENTS.md', content: getFileContent('agents') },
+      { name: 'CLAUDE.md', content: getFileContent('claude') },
     ];
 
     try {
