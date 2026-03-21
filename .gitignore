@@ -1,4 +1,5 @@
 node_modules/
 todos/
+.playwright-mcp/
 .tmp-test-presets/
 .DS_Store
