@@ -17,7 +17,7 @@ Creates `AI_POLICY.md`, `AGENTS.md`, and `CLAUDE.md` with three presets and full
 
 ## Presets
 
-- [Permissive](https://aipolicy.1mb.dev/?preset=permissive) -- AI tools welcome, no restrictions
+- [Open](https://aipolicy.1mb.dev/?preset=open) -- AI tools welcome, standard quality bar
 - [Standard](https://aipolicy.1mb.dev/?preset=standard) -- AI tools with human review
 - [Strict](https://aipolicy.1mb.dev/?preset=strict) -- AI tools restricted, explicit approval
 
@@ -37,7 +37,7 @@ curl -O https://aipolicy.1mb.dev/presets/standard/AGENTS.md
 curl -O https://aipolicy.1mb.dev/presets/standard/CLAUDE.md
 ```
 
-Available presets: `permissive`, `standard`, `strict`. For custom configurations, use the web UI and download the ZIP.
+Available presets: `open`, `standard`, `strict`. For custom configurations, use the web UI and download the ZIP.
 
 ## Contributing
 

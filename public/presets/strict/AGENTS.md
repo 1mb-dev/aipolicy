@@ -1,6 +1,6 @@
 # Agents
 
-Rules for AI coding agents working in this repository.
+Rules for AI coding agents assisting with this repository. AI-generated code is not accepted -- these rules cover use of AI for research, debugging, and understanding the codebase.
 
 ## General
 
@@ -9,7 +9,9 @@ Rules for AI coding agents working in this repository.
 - Prefer editing existing files over creating new ones
 - Do not add dependencies without explicit approval
 - Keep changes atomic -- one concern per commit
-- Ask for clarification when requirements are ambiguous
+- Ask for clarification rather than guessing at intent
+- Do not create new files or public APIs without explicit approval
+- Do not generate PR descriptions, review comments, or issue responses
 
 ## Setup
 
@@ -24,6 +26,7 @@ Tests are required. Run the full test suite before submitting. PRs without adequ
 - Use clear, descriptive commit messages
 - One logical change per commit
 - Reference relevant issues when applicable
+- Include `Assisted-by: <tool name>` trailer on AI-assisted commits
 
 ## Review
 

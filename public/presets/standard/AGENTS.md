@@ -10,6 +10,7 @@ Rules for AI coding agents working in this repository.
 - Do not add dependencies without explicit approval
 - Keep changes atomic -- one concern per commit
 - Ask for clarification when requirements are ambiguous
+- Do not generate PR descriptions or review comments on others' code
 
 ## Setup
 
@@ -24,6 +25,7 @@ Write tests for new functionality. Run the full suite before submitting.
 - Use clear, descriptive commit messages
 - One logical change per commit
 - Reference relevant issues when applicable
+- Include `Assisted-by: <tool name>` trailer on AI-assisted commits
 
 ## Review
 

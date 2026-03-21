@@ -24,6 +24,7 @@ Follow the project's existing testing conventions.
 - Use clear, descriptive commit messages
 - One logical change per commit
 - Reference relevant issues when applicable
+- Consider adding `Assisted-by: <tool name>` trailer on AI-assisted commits
 
 ## Review
 

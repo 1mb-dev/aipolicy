@@ -101,9 +101,9 @@
     <main>
       <!-- Zone 1: Preset Selector -->
       <div id="presets" class="presets" role="radiogroup" aria-label="Policy preset">
-        <button type="button" class="preset-card" role="radio" aria-checked="false" data-preset="permissive">
-          <div class="preset-label">Permissive</div>
-          <div class="preset-desc">Declares AI usage. No restrictions.</div>
+        <button type="button" class="preset-card" role="radio" aria-checked="false" data-preset="open">
+          <div class="preset-label">Open</div>
+          <div class="preset-desc">AI tools welcome. Standard quality bar.</div>
         </button>
         <button type="button" class="preset-card" role="radio" aria-checked="true" data-preset="standard">
           <div class="preset-label">Standard</div>
@@ -188,6 +188,15 @@
               <select id="opt-training-optout" data-param="training_optout" aria-describedby="desc-training-optout">
                 <option value="no">No</option>
                 <option value="yes" selected>Yes</option>
+              </select>
+            </div>
+
+            <div class="option-row">
+              <label for="opt-disclosure">AI disclosure</label>
+              <span class="option-desc" id="desc-disclosure">Assisted-by commit trailer policy for AI-assisted work</span>
+              <select id="opt-disclosure" data-param="disclosure" aria-describedby="desc-disclosure">
+                <option value="encouraged">Encouraged</option>
+                <option value="required" selected>Required</option>
               </select>
             </div>
           </div>

@@ -260,7 +260,8 @@ function loadFromUrl() {
   const params = new URLSearchParams(location.search);
   if (!params.has('preset')) return;
 
-  const preset = params.get('preset');
+  let preset = params.get('preset');
+  if (preset === 'permissive') preset = 'open';
   if (!PRESETS[preset]) return;
 
   state.preset = preset;

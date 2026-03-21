@@ -3,11 +3,12 @@
 // scripts/test-presets.js, scripts/validate-presets.js
 
 export const PRESETS = {
-  permissive: {
+  open: {
     ai_usage: 'permitted',
     ai_code: 'accepted',
     ai_cicd: 'permitted',
     training_optout: 'no',
+    disclosure: 'encouraged',
     code_style: '',
     test_reqs: 'none',
     restricted_paths: '',
@@ -19,6 +20,7 @@ export const PRESETS = {
     ai_code: 'requires-review',
     ai_cicd: 'permitted',
     training_optout: 'yes',
+    disclosure: 'required',
     code_style: '',
     test_reqs: 'recommended',
     restricted_paths: '',
@@ -30,6 +32,7 @@ export const PRESETS = {
     ai_code: 'not-accepted',
     ai_cicd: 'restricted',
     training_optout: 'yes',
+    disclosure: 'required',
     code_style: '',
     test_reqs: 'required-before-merge',
     restricted_paths: '',
@@ -60,6 +63,10 @@ export const LABELS = {
     'yes': 'Yes',
     'no': 'No',
   },
+  disclosure: {
+    'encouraged': 'Encouraged',
+    'required': 'Required',
+  },
   test_reqs: {
     'none': 'None',
     'recommended': 'Recommended',
@@ -84,7 +91,7 @@ export function generateAiPolicy(opts) {
 
 ## Accountability
 
-You are responsible for every line of code you submit, regardless of how it was produced. If you use AI tools, you must review, understand, and verify all output before committing it.
+You are responsible for every line of code you submit, regardless of how it was produced. If you use AI tools, review and verify all output before committing.
 
 ## AI Tool Usage
 
@@ -93,7 +100,7 @@ You are responsible for every line of code you submit, regardless of how it was 
   if (opts.ai_usage === 'permitted') {
     md += `AI tools are permitted for code generation, review, and documentation.\n\n`;
   } else if (opts.ai_usage === 'permitted-with-review') {
-    md += `AI tools are permitted. AI-assisted contributions go through the same review process as everything else.\n\n`;
+    md += `AI tools are permitted. Standard review process applies to all contributions.\n\n`;
   } else if (opts.ai_usage === 'restricted') {
     md += `AI tool usage is restricted. Get maintainer approval before using AI tools on contributions.\n\n`;
   } else {
@@ -103,26 +110,36 @@ You are responsible for every line of code you submit, regardless of how it was 
   md += `## AI-Generated Code\n\n`;
 
   if (opts.ai_code === 'accepted') {
-    md += `AI-generated code is accepted. No special attribution or review process is required beyond the standard contribution workflow.\n\n`;
+    md += `AI-generated code is accepted under the standard contribution workflow.\n\n`;
   } else if (opts.ai_code === 'requires-review') {
-    md += `AI-generated code must be reviewed by a human maintainer before merging. Changes should be atomic and explainable -- you must be able to justify any line on request.\n\n`;
+    md += `AI-generated code must be reviewed by a human maintainer before merging. Keep changes atomic -- you must be able to explain any line on request.\n\n`;
   } else if (opts.ai_code === 'requires-attribution') {
     md += `AI-generated code must be attributed. Use a commit trailer:\n\n\`\`\`text\nAssisted-by: <tool name>\n\`\`\`\n\nPull requests should note which portions were AI-generated.\n\n`;
   } else {
     md += `AI-generated code is not accepted. Pull requests identified as AI-generated will not be merged.\n\n`;
   }
 
-  // Disclosure for presets that accept AI code with conditions
-  if (opts.ai_usage !== 'permitted' && opts.ai_code !== 'accepted' && opts.ai_code !== 'not-accepted') {
-    md += `## Disclosure\n\nIndicate AI involvement in commit messages using a trailer:\n\n\`\`\`text\nAssisted-by: <tool name>\n\`\`\`\n\n`;
+  // Disclosure (skip if requires-attribution already shows the trailer)
+  if (opts.ai_code === 'requires-attribution') {
+    // already covered above
+  } else if (opts.disclosure === 'required' && opts.ai_code === 'not-accepted') {
+    md += `## Disclosure\n\nIf AI tools were used in any capacity (research, debugging, understanding code), note it in the commit message:\n\n\`\`\`text\nAssisted-by: <tool name>\n\`\`\`\n\n`;
+  } else if (opts.disclosure === 'required') {
+    md += `## Disclosure\n\nMark AI involvement in commit messages with a trailer:\n\n\`\`\`text\nAssisted-by: <tool name>\n\`\`\`\n\n`;
+  } else if (opts.disclosure === 'encouraged') {
+    md += `## Disclosure\n\nWe encourage marking AI involvement in commit messages:\n\n\`\`\`text\nAssisted-by: <tool name>\n\`\`\`\n\nThis helps the project understand tooling patterns.\n\n`;
   }
 
-  // Prohibited uses for non-permissive presets
+  // Prohibited uses for non-open presets
   if (opts.ai_usage !== 'permitted') {
     md += `## Prohibited Uses\n\n`;
-    md += `- Bulk AI-generated PRs without meaningful review\n`;
     md += `- Submitting AI output you have not read and understood\n`;
     md += `- Using AI to generate code that circumvents tests or CI checks\n`;
+    md += `- Feeding reviewer feedback back into AI without understanding it first\n`;
+    if (opts.ai_usage === 'permitted-with-review') {
+      md += `- AI-generated PR descriptions -- describe your own work\n`;
+      md += `- AI-generated review comments on other contributors' PRs\n`;
+    }
     if (opts.ai_code === 'not-accepted') {
       md += `- Any AI-generated code contributions\n`;
     }
@@ -149,15 +166,20 @@ You are responsible for every line of code you submit, regardless of how it was 
 
   // Licensing -- only when AI code is accepted in some form
   if (opts.ai_code !== 'not-accepted') {
-    md += `## Licensing\n\nAI-generated contributions must be compatible with this project's license. You must be able to certify your submissions under the project's contribution terms.\n\n`;
+    md += `## Licensing\n\nAI-generated contributions must be compatible with this project's license. Contributors must be able to certify their submissions under the project's contribution terms.\n\n`;
   }
 
-  // Enforcement for non-permissive presets
+  // Enforcement for non-open presets
   if (opts.ai_usage !== 'permitted') {
-    md += `## Enforcement\n\nMaintainers may close AI-generated PRs that do not meet these standards without detailed feedback.\n\n`;
+    md += `## Enforcement\n\n`;
+    if (opts.ai_usage === 'restricted') {
+      md += `Maintainers may close AI-generated PRs without detailed feedback. Repeated low-quality AI submissions may result in the contributor being asked to stop using AI tools for contributions.\n\n`;
+    } else {
+      md += `Maintainers may close AI-generated PRs that do not meet these standards without detailed feedback.\n\n`;
+    }
   }
 
-  md += `## Policy Evolution\n\nThis policy will change as the tooling does. PRs welcome.\n`;
+  md += `## Policy Evolution\n\nThis policy will evolve as tooling and conventions change. Contributions to the policy itself are welcome.\n`;
 
   md += FOOTER;
   return md;
@@ -169,8 +191,15 @@ export function generateAgents(opts) {
 
   let md = `# Agents
 
-Rules for AI coding agents working in this repository.
+`;
 
+  if (opts.ai_code === 'not-accepted') {
+    md += `Rules for AI coding agents assisting with this repository. AI-generated code is not accepted -- these rules cover use of AI for research, debugging, and understanding the codebase.\n`;
+  } else {
+    md += `Rules for AI coding agents working in this repository.\n`;
+  }
+
+  md += `
 ## General
 
 - Follow existing code conventions and patterns
@@ -178,8 +207,18 @@ Rules for AI coding agents working in this repository.
 - Prefer editing existing files over creating new ones
 - Do not add dependencies without explicit approval
 - Keep changes atomic -- one concern per commit
-- Ask for clarification when requirements are ambiguous
 `;
+
+  if (opts.ai_usage === 'permitted') {
+    md += `- Ask for clarification when requirements are ambiguous\n`;
+  } else if (opts.ai_usage === 'restricted') {
+    md += `- Ask for clarification rather than guessing at intent\n`;
+    md += `- Do not create new files or public APIs without explicit approval\n`;
+    md += `- Do not generate PR descriptions, review comments, or issue responses\n`;
+  } else {
+    md += `- Ask for clarification when requirements are ambiguous\n`;
+    md += `- Do not generate PR descriptions or review comments on others' code\n`;
+  }
 
   if (codeStyle) {
     md += `\n## Code Style\n\n${codeStyle}\n`;
@@ -217,6 +256,12 @@ Rules for AI coding agents working in this repository.
 - One logical change per commit
 - Reference relevant issues when applicable
 `;
+
+  if (opts.disclosure === 'required') {
+    md += `- Include \`Assisted-by: <tool name>\` trailer on AI-assisted commits\n`;
+  } else if (opts.disclosure === 'encouraged') {
+    md += `- Consider adding \`Assisted-by: <tool name>\` trailer on AI-assisted commits\n`;
+  }
 
   md += `\n## Review\n\n`;
 
@@ -274,6 +319,14 @@ Do not read or modify files listed under Restricted Paths in AGENTS.md.
 - Verify your changes work before submitting
 - When uncertain, ask rather than assume
 `;
+
+  if (opts.disclosure === 'required') {
+    md += `- Add \`Assisted-by: Claude\` trailer to commit messages\n`;
+  }
+
+  if (opts.ai_usage === 'restricted') {
+    md += `\n## Scope\n\n- Do not create new files without explicit instruction\n- Do not modify build, CI, or release configuration\n- If a task needs design decisions, stop and describe the options instead of choosing\n`;
+  }
 
   md += FOOTER;
   return md;
