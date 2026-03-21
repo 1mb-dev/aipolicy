@@ -12,14 +12,6 @@ AI tool usage is restricted. Get maintainer approval before using AI tools on co
 
 AI-generated code is not accepted. Pull requests identified as AI-generated will not be merged.
 
-## Disclosure
-
-Indicate AI involvement in commit messages using a trailer:
-
-```text
-Assisted-by: <tool name>
-```
-
 ## Prohibited Uses
 
 - Bulk AI-generated PRs without meaningful review
@@ -34,10 +26,6 @@ AI tools in CI/CD pipelines require explicit maintainer approval.
 ## Training Data
 
 This project requests that its code not be used for AI model training. We ask that AI tool providers honor this preference.
-
-## Licensing
-
-AI-generated contributions must be compatible with this project's license. You must be able to certify your submissions under the project's contribution terms.
 
 ## Enforcement
 

@@ -112,8 +112,8 @@ You are responsible for every line of code you submit, regardless of how it was 
     md += `AI-generated code is not accepted. Pull requests identified as AI-generated will not be merged.\n\n`;
   }
 
-  // Disclosure for non-permissive presets
-  if (opts.ai_usage !== 'permitted' && opts.ai_code !== 'accepted') {
+  // Disclosure for presets that accept AI code with conditions
+  if (opts.ai_usage !== 'permitted' && opts.ai_code !== 'accepted' && opts.ai_code !== 'not-accepted') {
     md += `## Disclosure\n\nIndicate AI involvement in commit messages using a trailer:\n\n\`\`\`text\nAssisted-by: <tool name>\n\`\`\`\n\n`;
   }
 
@@ -147,7 +147,10 @@ You are responsible for every line of code you submit, regardless of how it was 
     md += `This project does not opt out of AI training data collection. Standard platform terms apply.\n\n`;
   }
 
-  md += `## Licensing\n\nAI-generated contributions must be compatible with this project's license. You must be able to certify your submissions under the project's contribution terms.\n\n`;
+  // Licensing -- only when AI code is accepted in some form
+  if (opts.ai_code !== 'not-accepted') {
+    md += `## Licensing\n\nAI-generated contributions must be compatible with this project's license. You must be able to certify your submissions under the project's contribution terms.\n\n`;
+  }
 
   // Enforcement for non-permissive presets
   if (opts.ai_usage !== 'permitted') {
@@ -185,8 +188,7 @@ Rules for AI coding agents working in this repository.
   md += `
 ## Setup
 
-<!-- Replace with your project's actual commands -->
-<!-- npm install / go build / make / etc. -->
+> Add your project's setup commands here (npm install, go build, make, etc.)
 
 ## Testing
 
@@ -219,7 +221,7 @@ Rules for AI coding agents working in this repository.
   md += `\n## Review\n\n`;
 
   if (opts.review_reqs === 'none') {
-    md += `Follow the standard review process.\n`;
+    md += `No additional review requirements for AI-assisted changes.\n`;
   } else if (opts.review_reqs === 'significant-changes') {
     md += `Changes touching more than one module or any security-relevant code require human review. Minor fixes and doc updates follow the standard process.\n`;
   } else {

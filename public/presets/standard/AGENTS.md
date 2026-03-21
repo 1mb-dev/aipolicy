@@ -13,8 +13,7 @@ Rules for AI coding agents working in this repository.
 
 ## Setup
 
-<!-- Replace with your project's actual commands -->
-<!-- npm install / go build / make / etc. -->
+> Add your project's setup commands here (npm install, go build, make, etc.)
 
 ## Testing
 
