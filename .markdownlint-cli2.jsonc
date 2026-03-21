@@ -1,0 +1,13 @@
+{
+  "config": {
+    "default": true,
+    // Allow inline HTML (generated footer uses markdown emphasis, not HTML)
+    "MD033": false,
+    // Allow duplicate headings across different files
+    "MD024": { "siblings_only": true },
+    // Allow trailing punctuation in headings (e.g., "AI_POLICY.md?")
+    "MD026": false,
+    // Line length -- not enforced for generated policy files
+    "MD013": false
+  }
+}

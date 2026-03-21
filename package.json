@@ -7,16 +7,20 @@
   "scripts": {
     "serve": "python3 -m http.server 8919 -d public",
     "generate": "node scripts/generate-presets.js",
-    "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js && npm run lint:md",
     "lint:html": "htmlhint public/*.html",
     "lint:css": "stylelint 'public/styles/**/*.css'",
     "lint:js": "eslint public/scripts/",
-    "check": "npm run lint && npm run validate",
+    "lint:md": "markdownlint-cli2 '*.md' 'public/presets/**/*.md'",
+    "test": "npm run test:presets",
+    "test:presets": "node scripts/test-presets.js",
+    "check": "npm run lint && npm run test && npm run validate",
     "validate": "node scripts/validate-presets.js"
   },
   "devDependencies": {
     "eslint": "^9.0.0",
     "htmlhint": "^1.1.0",
+    "markdownlint-cli2": "^0.17.0",
     "stylelint": "^16.0.0",
     "stylelint-config-standard": "^37.0.0"
   }
