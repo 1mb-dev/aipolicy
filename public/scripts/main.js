@@ -6,6 +6,15 @@
 import { PRESETS, LABELS, generateAiPolicy, generateAgents, generateClaude } from '../lib/templates.js';
 
 // ============================================
+// Utilities
+// ============================================
+
+function debounce(fn, ms) {
+  let id;
+  return (...args) => { clearTimeout(id); id = setTimeout(() => fn(...args), ms); };
+}
+
+// ============================================
 // State
 // ============================================
 
@@ -52,6 +61,7 @@ function renderPresetCards() {
   for (const card of cards) {
     const isSelected = card.dataset.preset === state.preset;
     card.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+    card.setAttribute('tabindex', isSelected ? '0' : '-1');
 
     const label = card.querySelector('.preset-label');
     if (label) {
@@ -124,8 +134,10 @@ function render() {
 // ============================================
 
 function initPresets() {
-  const cards = document.querySelectorAll('.preset-card');
-  for (const card of cards) {
+  const container = document.querySelector('.presets');
+  const presetKeys = Object.keys(PRESETS);
+
+  for (const card of container.querySelectorAll('.preset-card')) {
     card.addEventListener('click', () => {
       const preset = card.dataset.preset;
       if (!PRESETS[preset]) return;
@@ -136,6 +148,25 @@ function initPresets() {
       render();
     });
   }
+
+  container.addEventListener('keydown', (e) => {
+    const card = e.target.closest('.preset-card');
+    if (!card) return;
+    const currentIdx = presetKeys.indexOf(card.dataset.preset);
+    let newIdx = -1;
+
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') newIdx = (currentIdx + 1) % presetKeys.length;
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') newIdx = (currentIdx - 1 + presetKeys.length) % presetKeys.length;
+    else if (e.key === 'Home') newIdx = 0;
+    else if (e.key === 'End') newIdx = presetKeys.length - 1;
+
+    if (newIdx >= 0) {
+      e.preventDefault();
+      const target = container.querySelector(`[data-preset="${presetKeys[newIdx]}"]`);
+      target.click();
+      target.focus();
+    }
+  });
 }
 
 // ============================================
@@ -210,13 +241,14 @@ function initCustomize() {
     render();
   });
 
+  const debouncedRender = debounce(() => { checkModified(); render(); }, 250);
+
   panel.addEventListener('input', (e) => {
     if (e.target.type !== 'text') return;
     const param = e.target.dataset.param;
     if (!param) return;
     state.options[param] = e.target.value;
-    checkModified();
-    render();
+    debouncedRender();
   });
 }
 
