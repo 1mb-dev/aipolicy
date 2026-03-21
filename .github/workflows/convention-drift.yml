@@ -1,0 +1,75 @@
+name: Convention Drift Check
+
+on:
+  schedule:
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  check-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Restore hash cache
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: .convention-hashes
+          key: convention-hashes-${{ github.run_id }}
+          restore-keys: convention-hashes-
+
+      - name: Check for drift
+        id: drift
+        run: |
+          mkdir -p .convention-hashes
+
+          drifted=""
+          urls=$(jq -r '.sources[] | "\(.name)|\(.url)"' public/conventions.json)
+
+          while IFS='|' read -r name url; do
+            slug=$(echo "$name" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
+            hash_file=".convention-hashes/${slug}.sha256"
+
+            new_hash=$(curl -sfL --max-time 30 "$url" | shasum -a 256 | cut -d' ' -f1)
+
+            if [ -z "$new_hash" ]; then
+              echo "::warning::Failed to fetch: $name ($url)"
+              continue
+            fi
+
+            if [ -f "$hash_file" ]; then
+              old_hash=$(cat "$hash_file")
+              if [ "$old_hash" != "$new_hash" ]; then
+                echo "Drift detected: $name"
+                drifted="${drifted}| ${name} | ${url} |\n"
+              fi
+            else
+              echo "First run baseline: $name"
+            fi
+
+            echo "$new_hash" > "$hash_file"
+          done <<< "$urls"
+
+          if [ -n "$drifted" ]; then
+            body="Convention source content has changed since last check.\n\n| Source | URL |\n|--------|-----|\n${drifted}\nRun \`/evolve\` to review and update templates."
+            echo "body<<EOFBODY" >> "$GITHUB_OUTPUT"
+            echo -e "$body" >> "$GITHUB_OUTPUT"
+            echo "EOFBODY" >> "$GITHUB_OUTPUT"
+            echo "drifted=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create issue
+        if: steps.drift.outputs.drifted == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BODY: ${{ steps.drift.outputs.body }}
+        run: |
+          gh issue create \
+            --title "Convention drift detected" \
+            --body "$BODY" \
+            --label "convention-drift"
