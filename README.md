@@ -49,18 +49,9 @@ Available presets: `permissive`, `standard`, `strict`
 
 For custom configurations, use the web UI and download the ZIP.
 
-## Features
-
-- Three presets: Permissive, Standard, Strict
-- Customize every option before generating
-- URL-as-config -- share a link with your exact configuration
-- Per-file copy or download all as ZIP
-- Dark mode (auto / light / dark)
-- No backend, no tracking, no dependencies
-
 ## Stack
 
-Vanilla HTML, CSS, and JavaScript. No framework, no build step. Hosted on GitHub Pages.
+Vanilla HTML, CSS, and JavaScript. No framework, no build step, no backend. Hosted on GitHub Pages.
 
 ## License
 

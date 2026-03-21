@@ -3,7 +3,7 @@
     aipolicy.1mb.dev
 
     Vanilla HTML, CSS, and JavaScript.
-    No frameworks. No build step. No tracking.
+    No frameworks. No build step.
 
     View humans.txt for credits.
     View source -- it's meant to be read.
@@ -14,7 +14,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>aipolicy -- Generate AI Policy Files for Your Repository</title>
   <meta name="description" content="Create AI_POLICY.md, AGENTS.md, and CLAUDE.md for your repository. No install, no sign-up.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'none';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'none';">
   <meta name="theme-color" content="#2563eb">
   <link rel="canonical" href="https://aipolicy.1mb.dev/">
 
@@ -248,16 +248,16 @@
       <!-- Zone 3: Convention Explainer -->
       <article class="explainer" aria-label="About AI policy files">
         <h2>What is AI_POLICY.md?</h2>
-        <p>A convention for repositories to declare how AI tools interact with their codebase -- which tools are permitted, how AI-generated code is handled, and training data opt-out. Emerging across open-source projects.</p>
+        <p>A convention for repositories to declare how AI tools interact with their codebase -- which tools are permitted, how AI-generated code is handled, and training data preferences.</p>
 
         <h2>Who's adopting this?</h2>
-        <p>CNCF ecosystem projects and open-source maintainers are adopting AI policy files. Templates here track current convention patterns.</p>
+        <p>Projects like <a href="https://github.com/cloudnative-pg/cloudnative-pg">CloudNativePG</a>, <a href="https://github.com/kyverno/kyverno">Kyverno</a>, and <a href="https://github.com/kubewarden">Kubewarden</a> ship AI policy files. Templates here track current patterns.</p>
 
         <h2>Why add AI policy files?</h2>
-        <p>A stated policy is better than an ambiguous one. Contributors know what's expected. Maintainers have a governance reference point.</p>
+        <p>Sets expectations for contributors and gives maintainers a governance reference point.</p>
 
         <h2>Convention references</h2>
-        <p>Based on Linux Foundation AI governance guidance, Anthropic's CLAUDE.md spec, and CNCF practices around AGENTS.md. See <a href="/conventions.json">conventions.json</a> for the full source list.</p>
+        <p>Informed by the <a href="https://agentsmd.org">AGENTS.md spec</a>, Linux Foundation AI governance guidance, and CNCF project practices. See <a href="/conventions.json">conventions.json</a> for the full source list.</p>
       </article>
     </main>
 
@@ -269,5 +269,6 @@
   </div>
 
   <script type="module" src="/scripts/main.js"></script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;token&quot;: &quot;49d8fbae756842cb9dbcff99072fc88a&quot;}"></script>
 </body>
 </html>

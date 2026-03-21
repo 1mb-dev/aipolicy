@@ -2,11 +2,11 @@
 
 ## Accountability
 
-You are responsible for every line of code you submit, regardless of how it was produced. If you use AI tools, you must review, understand, and verify all output before committing it.
+You are responsible for every line of code you submit, regardless of how it was produced. If you use AI tools, review and verify all output before committing.
 
 ## AI Tool Usage
 
-AI tools are permitted. AI-assisted contributions go through the same review process as everything else.
+AI tools are permitted. Standard review process applies.
 
 ## AI-Generated Code
 

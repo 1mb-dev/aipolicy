@@ -22,7 +22,7 @@ make generate    # Regenerate static preset files after template changes
 
 ## Testing
 
-Write tests for new functionality. Run the full suite before submitting.
+No test framework. Run `make check` before submitting. For UI changes, verify manually: preset rendering, tab switching, URL round-trip, ZIP download.
 
 ## Commits
 
