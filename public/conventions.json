@@ -1,43 +1,67 @@
 {
-  "version": "1.0",
+  "version": "1.1",
   "description": "Well-known sources for AI policy file conventions. Maintained by aipolicy.1mb.dev.",
-  "last_updated": "2026-03-21",
+  "last_updated": "2026-03-22",
   "sources": [
     {
       "name": "AGENTS.md Specification",
-      "url": "https://agentsmd.org",
+      "url": "https://agents.md",
       "type": "specification",
-      "description": "The AGENTS.md convention for AI coding agent instructions. Supported by Codex, Copilot, Cursor, and others."
+      "description": "The AGENTS.md convention for AI coding agent instructions. 60k+ repos. Stewarded by the Agentic AI Foundation under the Linux Foundation."
     },
     {
-      "name": "Linux Foundation AI Policy Guidance",
-      "url": "https://www.linuxfoundation.org/research/ai-policy",
+      "name": "Linux Foundation Generative AI Policy",
+      "url": "https://www.linuxfoundation.org/legal/generative-ai",
       "type": "guidance",
-      "description": "Linux Foundation guidance on AI governance for open-source projects."
+      "description": "Linux Foundation policy on AI-generated contributions: licensing compliance, attribution, and third-party content handling."
     },
     {
-      "name": "CNCF AI Practices",
-      "url": "https://www.cncf.io",
+      "name": "OpenSSF Guide for AI Code Assistant Instructions",
+      "url": "https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions.html",
+      "type": "guidance",
+      "description": "Security-focused guidance for configuring AI coding assistants. Covers secure coding prompts, supply chain safety, and language-specific rules."
+    },
+    {
+      "name": "ASF Generative Tooling Guidance",
+      "url": "https://www.apache.org/legal/generative-tooling.html",
+      "type": "guidance",
+      "description": "Apache Software Foundation policy on AI-generated contributions. Requires license compatibility and recommends Generated-by commit trailers."
+    },
+    {
+      "name": "Open Source AI Definition (OSAID)",
+      "url": "https://opensource.org/ai/open-source-ai-definition",
+      "type": "specification",
+      "description": "OSI's canonical definition of Open Source AI (v1.0, Oct 2024). Establishes the four freedoms: use, study, modify, share."
+    },
+    {
+      "name": "CNCF: Sustaining Open Source in the Age of Generative AI",
+      "url": "https://www.cncf.io/blog/2026/03/10/sustaining-open-source-in-the-age-of-generative-ai/",
       "type": "ecosystem",
-      "description": "CNCF ecosystem practices around AI policy adoption in cloud-native projects."
+      "description": "How CNCF projects handle AI contributions. Covers shared governance patterns, disclosure, and maintainer capacity."
+    },
+    {
+      "name": "Open Source AI Contribution Policies",
+      "url": "https://github.com/melissawm/open-source-ai-contribution-policies",
+      "type": "catalog",
+      "description": "Curated catalog of 50+ real-world AI contribution policies across open-source projects. Categorized by stance: accepting, restricting, or rejecting."
     },
     {
       "name": "Kubewarden AI Policy",
-      "url": "https://github.com/kubewarden",
+      "url": "https://github.com/kubewarden/community/blob/main/AI_POLICY.md",
       "type": "reference-implementation",
-      "description": "Early adopter of AI_POLICY.md in the CNCF ecosystem."
+      "description": "CNCF project policy requiring Assisted-by trailers, human accountability, and engagement with reviewers."
     },
     {
-      "name": "CloudNativePG AI Usage Policy",
-      "url": "https://github.com/cloudnative-pg/cloudnative-pg",
+      "name": "CloudNativePG AI Policy",
+      "url": "https://github.com/cloudnative-pg/governance/blob/main/AI_POLICY.md",
       "type": "reference-implementation",
-      "description": "Structured AI usage policy with contributor guidelines."
+      "description": "Structured AI policy prohibiting unvetted boilerplate, hallucinated features, and shotgun refactoring."
     },
     {
-      "name": "Kyverno AI Policy",
-      "url": "https://github.com/kyverno/kyverno",
+      "name": "Kyverno AI Usage Policy",
+      "url": "https://github.com/kyverno/community/blob/main/AI_USAGE_POLICY.md",
       "type": "reference-implementation",
-      "description": "Comprehensive AI policy with disclosure requirements and enforcement."
+      "description": "Comprehensive policy with PR limits, disclosure trailers, and rules scoped to accepted issues only."
     }
   ]
 }
