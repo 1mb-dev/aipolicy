@@ -16,7 +16,7 @@
   --color-border: #e5e7eb;
   --color-preview-bg: #f3f4f6;
   --color-preview-text: #1f2937;
-  --color-success: #16a34a;
+  --color-success: #15803d;
   --color-btn-text: #fff;
 
   /* Typography */
@@ -53,7 +53,7 @@
     --color-border: #2d3140;
     --color-preview-bg: #141720;
     --color-preview-text: #d1d5db;
-    --color-success: #4ade80;
+    --color-success: #22c55e;
     --color-btn-text: #0f1117;
   }
 }
@@ -69,7 +69,7 @@
   --color-border: #2d3140;
   --color-preview-bg: #141720;
   --color-preview-text: #d1d5db;
-  --color-success: #4ade80;
+  --color-success: #22c55e;
   --color-btn-text: #0f1117;
 }
 
@@ -221,8 +221,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   border: none;
   background: transparent;
   color: var(--color-text-muted);
@@ -388,7 +388,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 6px 12px;
+  padding: 8px 12px;
+  min-height: 36px;
   font-size: 0.75rem;
   font-family: var(--font-ui);
   background: var(--color-surface);
@@ -436,9 +437,10 @@ body {
   padding: 8px 0;
   background: transparent;
   border: none;
-  color: var(--color-text-muted);
+  color: var(--color-text);
   font-family: inherit;
   font-size: 0.875rem;
+  font-weight: 500;
   cursor: pointer;
   transition: color var(--transition-fast);
 }
@@ -609,6 +611,10 @@ body {
    404 Page
    ============================================ */
 
+.not-found-presets {
+  margin-top: 8px;
+}
+
 .not-found-link {
   color: var(--color-accent);
   text-decoration: none;
@@ -674,6 +680,7 @@ body {
   .option-row select,
   .option-row input[type="text"] {
     max-width: 100%;
+    min-height: 44px;
   }
 
   .header h1 {
@@ -682,12 +689,14 @@ body {
 
   .copy-btn {
     right: 12px;
-    padding: 5px 10px;
+    padding: 8px 10px;
+    min-height: 36px;
   }
 
   .tab-bar button {
-    padding: 10px;
+    padding: 12px 10px;
     font-size: 0.75rem;
+    min-height: 44px;
   }
 
   .customize-panel-inner {

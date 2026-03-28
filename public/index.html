@@ -52,6 +52,7 @@
   }
   </script>
 
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM context">
   <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
@@ -62,17 +63,18 @@
     <!-- Header -->
     <header class="header">
       <div class="header-bar">
-        <a href="/" class="header-brand" aria-label="aipolicy home">
-          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M14 2L3 7v8c0 7.2 4.7 13 11 14 6.3-1 11-6.8 11-14V7L14 2z" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-            <rect x="9.5" y="8" width="9" height="12" rx="1" fill="var(--color-surface)" stroke="currentColor" stroke-width="1.2"/>
-            <path d="M15 8v3.5h3.5" fill="var(--color-surface)" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
-            <line x1="11.5" y1="14" x2="16.5" y2="14" stroke="currentColor" stroke-width="1" opacity="0.5"/>
-            <line x1="11.5" y1="16.5" x2="15" y2="16.5" stroke="currentColor" stroke-width="1" opacity="0.5"/>
-          </svg>
-          <span class="header-brand-name">aipolicy</span>
-        </a>
-
+        <nav aria-label="Home">
+          <a href="/" class="header-brand" aria-label="aipolicy home">
+            <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M14 2L3 7v8c0 7.2 4.7 13 11 14 6.3-1 11-6.8 11-14V7L14 2z" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+              <rect x="9.5" y="8" width="9" height="12" rx="1" fill="var(--color-surface)" stroke="currentColor" stroke-width="1.2"/>
+              <path d="M15 8v3.5h3.5" fill="var(--color-surface)" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+              <line x1="11.5" y1="14" x2="16.5" y2="14" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+              <line x1="11.5" y1="16.5" x2="15" y2="16.5" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+            </svg>
+            <span class="header-brand-name">aipolicy</span>
+          </a>
+        </nav>
         <div class="theme-toggle" role="group" aria-label="Theme">
           <button type="button" data-theme-value="light" aria-pressed="false" aria-label="Light theme">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -260,20 +262,19 @@
         <p>A convention for repositories to declare how AI tools interact with their codebase -- which tools are permitted, how AI-generated code is handled, and training data preferences.</p>
 
         <h2>Who's adopting this?</h2>
-        <p>Projects like <a href="https://github.com/cloudnative-pg/cloudnative-pg">CloudNativePG</a>, <a href="https://github.com/kyverno/kyverno">Kyverno</a>, and <a href="https://github.com/kubewarden">Kubewarden</a> ship AI policy files. Templates here track current patterns.</p>
+        <p>Projects like <a href="https://github.com/cloudnative-pg/cloudnative-pg" target="_blank" rel="noopener">CloudNativePG</a>, <a href="https://github.com/kyverno/kyverno" target="_blank" rel="noopener">Kyverno</a>, and <a href="https://github.com/kubewarden" target="_blank" rel="noopener">Kubewarden</a> ship AI policy files. Templates here track current patterns.</p>
 
         <h2>Why add AI policy files?</h2>
         <p>Sets expectations for contributors and gives maintainers a governance reference point.</p>
 
         <h2>Convention references</h2>
-        <p>Informed by the <a href="https://agentsmd.org">AGENTS.md spec</a>, Linux Foundation AI governance guidance, and CNCF project practices. See <a href="/conventions.json">conventions.json</a> for the full source list.</p>
+        <p>Informed by the <a href="https://agentsmd.org" target="_blank" rel="noopener">AGENTS.md spec</a>, Linux Foundation AI governance guidance, and CNCF project practices. See <a href="/conventions.json">conventions.json</a> for the full source list.</p>
       </article>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
-      <p>Built by <a href="https://github.com/1mb-dev">1mb-dev</a> &middot; keep building</p>
-      <p><a href="https://github.com/1mb-dev/aipolicy">GitHub</a></p>
+      <p>&copy; 2026 <a href="https://github.com/1mb-dev" target="_blank" rel="noopener">1mb-dev</a> &middot; keep building &middot; <a href="https://github.com/1mb-dev/aipolicy" target="_blank" rel="noopener">GitHub</a></p>
     </footer>
   </div>
 

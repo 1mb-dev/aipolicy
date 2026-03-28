@@ -1,0 +1,25 @@
+# aipolicy
+
+> Generate AI policy files (AI_POLICY.md, AGENTS.md, CLAUDE.md) for repositories.
+> No install, no sign-up. Vanilla HTML/CSS/JS.
+
+## URL
+https://aipolicy.1mb.dev
+
+## What This Does
+Generates three markdown files that declare how AI tools should interact with
+a codebase: usage policies, agent rules, disclosure requirements, and training
+data preferences.
+
+## Endpoints
+- / — Interactive generator (select preset, customize, download ZIP)
+- /conventions.json — Convention sources and references (v1.1)
+- /presets/ — Static preset files for curl/wget download
+
+## Presets
+- open — AI tools welcome, standard quality bar
+- standard — Sets boundaries, requires human review
+- strict — Restricts AI tools, explicit approval required
+
+## Source
+https://github.com/1mb-dev/aipolicy
