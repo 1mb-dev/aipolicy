@@ -1,6 +1,6 @@
 {
   "name": "aipolicy",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "private": true,
   "description": "Generate AI policy files for your repository",
   "type": "module",
