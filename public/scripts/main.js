@@ -3,7 +3,7 @@
 
 'use strict';
 
-import { PRESETS, LABELS, generateAiPolicy, generateAgents, generateClaude } from '../lib/templates.js';
+import { PRESETS, LABELS, generateAiPolicy, generateAgents, generateClaude, generateCopilot, generateCursor } from '../lib/templates.js';
 
 // ============================================
 // Utilities
@@ -30,6 +30,8 @@ function getGeneratedFiles() {
     policy: generateAiPolicy(state.options),
     agents: generateAgents(state.options),
     claude: generateClaude(state.options),
+    copilot: generateCopilot(state.options),
+    cursor: generateCursor(state.options),
   };
 }
 
@@ -43,6 +45,8 @@ function renderPreview() {
     policy: document.getElementById('panel-policy'),
     agents: document.getElementById('panel-agents'),
     claude: document.getElementById('panel-claude'),
+    copilot: document.getElementById('panel-copilot'),
+    cursor: document.getElementById('panel-cursor'),
   };
 
   for (const [key, el] of Object.entries(panels)) {
@@ -71,11 +75,29 @@ function renderPresetCards() {
   }
 }
 
-const FILE_NAMES = { policy: 'AI_POLICY.md', agents: 'AGENTS.md', claude: 'CLAUDE.md' };
+const FILE_NAMES = {
+  policy: 'AI_POLICY.md',
+  agents: 'AGENTS.md',
+  claude: 'CLAUDE.md',
+  copilot: 'copilot-instructions.md',
+  cursor: 'aipolicy.mdc',
+};
 
 function renderTabs() {
-  const tabMap = { policy: 'tab-policy', agents: 'tab-agents', claude: 'tab-claude' };
-  const panelMap = { policy: 'panel-policy', agents: 'panel-agents', claude: 'panel-claude' };
+  const tabMap = {
+    policy: 'tab-policy',
+    agents: 'tab-agents',
+    claude: 'tab-claude',
+    copilot: 'tab-copilot',
+    cursor: 'tab-cursor',
+  };
+  const panelMap = {
+    policy: 'panel-policy',
+    agents: 'panel-agents',
+    claude: 'panel-claude',
+    copilot: 'panel-copilot',
+    cursor: 'panel-cursor',
+  };
 
   for (const [key, tabId] of Object.entries(tabMap)) {
     const tab = document.getElementById(tabId);
@@ -175,7 +197,7 @@ function initPresets() {
 
 function initTabs() {
   const tabs = document.querySelectorAll('[role="tab"]');
-  const tabKeys = ['policy', 'agents', 'claude'];
+  const tabKeys = ['policy', 'agents', 'claude', 'copilot', 'cursor'];
 
   for (const tab of tabs) {
     tab.addEventListener('click', () => {
@@ -438,6 +460,8 @@ function initDownload() {
       { name: 'AI_POLICY.md', content: getFileContent('policy') },
       { name: 'AGENTS.md', content: getFileContent('agents') },
       { name: 'CLAUDE.md', content: getFileContent('claude') },
+      { name: '.github/copilot-instructions.md', content: getFileContent('copilot') },
+      { name: '.cursor/rules/aipolicy.mdc', content: getFileContent('cursor') },
     ];
 
     try {
