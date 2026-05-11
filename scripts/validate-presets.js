@@ -6,35 +6,29 @@
 import { readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { PRESETS, generateAiPolicy, generateAgents, generateClaude } from '../public/lib/templates.js';
+import { PRESETS, FILE_TYPES } from '../public/lib/templates.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
 const publicDir = join(root, 'public');
 
-const generators = {
-  'AI_POLICY.md': generateAiPolicy,
-  'AGENTS.md': generateAgents,
-  'CLAUDE.md': generateClaude,
-};
-
 let drifted = false;
 let checked = 0;
 
 for (const [preset, opts] of Object.entries(PRESETS)) {
-  for (const [file, gen] of Object.entries(generators)) {
-    const path = join(publicDir, 'presets', preset, file);
-    const expected = gen(opts);
+  for (const ft of FILE_TYPES) {
+    const path = join(publicDir, 'presets', preset, ft.path);
+    const expected = ft.generator(opts);
 
     try {
       const actual = readFileSync(path, 'utf8');
       if (actual !== expected) {
-        console.error(`DRIFT: public/presets/${preset}/${file} does not match template output`);
+        console.error(`DRIFT: public/presets/${preset}/${ft.path} does not match template output`);
         drifted = true;
       }
       checked++;
     } catch (_e) {
-      console.error(`MISSING: public/presets/${preset}/${file}`);
+      console.error(`MISSING: public/presets/${preset}/${ft.path}`);
       drifted = true;
     }
   }

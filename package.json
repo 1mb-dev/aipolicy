@@ -11,7 +11,7 @@
     "lint:html": "htmlhint public/*.html",
     "lint:css": "stylelint 'public/styles/**/*.css'",
     "lint:js": "eslint public/scripts/ public/lib/",
-    "lint:md": "markdownlint-cli2 '*.md' 'public/presets/**/*.md'",
+    "lint:md": "markdownlint-cli2 '*.md' 'public/presets/**/*.md' 'public/presets/**/*.mdc'",
     "lint-fix:css": "stylelint 'public/styles/**/*.css' --fix",
     "lint-fix:js": "eslint public/scripts/ public/lib/ --fix",
     "lint-fix:md": "markdownlint-cli2 --fix '*.md' 'public/presets/**/*.md'",
