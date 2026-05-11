@@ -331,3 +331,169 @@ Do not read or modify files listed under Restricted Paths in AGENTS.md.
   md += FOOTER;
   return md;
 }
+
+export function generateCopilot(opts) {
+  const codeStyle = opts.code_style || '';
+  const restrictedPaths = opts.restricted_paths || '';
+
+  let md = `# GitHub Copilot Instructions
+
+Project-wide instructions for GitHub Copilot. These rules apply to code completions, chat, and agent-mode interactions.
+
+## General
+
+- Follow existing code conventions and patterns in this repository
+- Prefer editing existing files over creating new ones
+- Keep changes scoped to the current task
+- Do not add dependencies without explicit approval
+`;
+
+  if (opts.ai_usage === 'permitted') {
+    md += `- Ask for clarification when requirements are ambiguous\n`;
+  } else if (opts.ai_usage === 'restricted') {
+    md += `- Ask for clarification rather than guessing at intent\n`;
+    md += `- Do not generate PR descriptions, review comments, or issue responses\n`;
+    md += `- Do not create new public APIs without explicit approval\n`;
+  } else {
+    md += `- Ask for clarification when requirements are ambiguous\n`;
+    md += `- Do not generate PR descriptions or review comments on others' code\n`;
+  }
+
+  if (codeStyle) {
+    md += `\n## Code Style\n\n${codeStyle}\n`;
+  }
+
+  md += `\n## Testing\n\n`;
+
+  if (opts.test_reqs === 'none') {
+    md += `Follow the project's existing testing conventions.\n`;
+  } else if (opts.test_reqs === 'recommended') {
+    md += `Write tests for new functionality. Run the existing test suite before suggesting changes.\n`;
+  } else {
+    md += `Tests are required. Run the full test suite before suggesting changes. Suggestions without adequate test coverage will not be accepted.\n`;
+  }
+
+  if (restrictedPaths) {
+    const paths = restrictedPaths.split(',').map(p => p.trim()).filter(Boolean);
+    md += `\n## Restricted Paths\n\nDo not suggest changes to:\n\n`;
+    for (const p of paths) {
+      md += `- \`${p}\`\n`;
+    }
+  }
+
+  md += `\n## Commits\n\n- Use clear, descriptive commit messages\n- One logical change per commit\n`;
+
+  if (opts.disclosure === 'required') {
+    md += `- Include \`Assisted-by: GitHub Copilot\` trailer when Copilot was used\n`;
+  } else if (opts.disclosure === 'encouraged') {
+    md += `- Consider adding \`Assisted-by: GitHub Copilot\` trailer when Copilot was used\n`;
+  }
+
+  md += `\n## Review\n\n`;
+
+  if (opts.review_reqs === 'none') {
+    md += `Follow the project's standard review process.\n`;
+  } else if (opts.review_reqs === 'significant-changes') {
+    md += `Changes touching more than one module or any security-relevant code require human review.\n`;
+  } else {
+    md += `All Copilot-assisted pull requests require human review before merging, regardless of scope.\n`;
+  }
+
+  md += FOOTER;
+  return md;
+}
+
+export function generateCursor(opts) {
+  const codeStyle = opts.code_style || '';
+  const restrictedPaths = opts.restricted_paths || '';
+
+  // YAML frontmatter + HTML comment explaining the alwaysApply trade-off.
+  // Self-contained: do not reference external AGENTS.md (avoids staleness).
+  let md = `---
+description: AI policy and agent rules for this project
+alwaysApply: true
+---
+
+<!--
+  alwaysApply: true loads these rules in every Cursor conversation.
+  Set alwaysApply: false (and add a globs: pattern) to load only when
+  matching files are in context. Reduces per-conversation token cost.
+-->
+
+# Project Rules
+
+Rules for Cursor (Chat, Composer, and Agent mode) when working in this repository.
+
+## General
+
+- Follow existing code conventions and patterns
+- Prefer editing existing files over creating new ones
+- Keep changes scoped to the current task
+- Do not add dependencies without explicit approval
+`;
+
+  if (opts.ai_usage === 'permitted') {
+    md += `- Ask for clarification when requirements are ambiguous\n`;
+  } else if (opts.ai_usage === 'restricted') {
+    md += `- Ask for clarification rather than guessing at intent\n`;
+    md += `- Do not create new files or public APIs without explicit approval\n`;
+    md += `- Do not propose changes to build, CI, or release configuration\n`;
+  } else {
+    md += `- Ask for clarification when requirements are ambiguous\n`;
+    md += `- Do not generate PR descriptions or review comments on others' code\n`;
+  }
+
+  if (codeStyle) {
+    md += `\n## Code Style\n\n${codeStyle}\n`;
+  }
+
+  md += `\n## Testing\n\n`;
+
+  if (opts.test_reqs === 'none') {
+    md += `Follow the project's existing testing conventions.\n`;
+  } else if (opts.test_reqs === 'recommended') {
+    md += `Write tests for new functionality. Run the existing test suite before proposing changes.\n`;
+  } else {
+    md += `Tests are required. Run the full test suite before proposing changes. Do not propose changes that fail existing tests.\n`;
+  }
+
+  if (restrictedPaths) {
+    const paths = restrictedPaths.split(',').map(p => p.trim()).filter(Boolean);
+    md += `\n## Restricted Paths\n\nDo not read, edit, or propose changes to:\n\n`;
+    for (const p of paths) {
+      md += `- \`${p}\`\n`;
+    }
+  }
+
+  md += `\n## Commits\n\n- Use clear, descriptive commit messages\n- One logical change per commit\n`;
+
+  if (opts.disclosure === 'required') {
+    md += `- Include \`Assisted-by: Cursor\` trailer on Cursor-assisted commits\n`;
+  } else if (opts.disclosure === 'encouraged') {
+    md += `- Consider adding \`Assisted-by: Cursor\` trailer on Cursor-assisted commits\n`;
+  }
+
+  md += `\n## Review\n\n`;
+
+  if (opts.review_reqs === 'none') {
+    md += `Follow the project's standard review process.\n`;
+  } else if (opts.review_reqs === 'significant-changes') {
+    md += `Changes touching more than one module or any security-relevant code require human review.\n`;
+  } else {
+    md += `All Cursor-assisted pull requests require human review before merging, regardless of scope.\n`;
+  }
+
+  md += FOOTER;
+  return md;
+}
+
+// Single source of truth for which files the generator emits.
+// Build scripts (generate-presets, test-presets, validate-presets) iterate over this.
+// At 3+ tools, refactor main.js + index.html to be data-driven from this list too.
+export const FILE_TYPES = [
+  { key: 'policy',  path: 'AI_POLICY.md',                      generator: generateAiPolicy },
+  { key: 'agents',  path: 'AGENTS.md',                         generator: generateAgents },
+  { key: 'claude',  path: 'CLAUDE.md',                         generator: generateClaude },
+  { key: 'copilot', path: '.github/copilot-instructions.md',   generator: generateCopilot },
+  { key: 'cursor',  path: '.cursor/rules/aipolicy.mdc',        generator: generateCursor },
+];
