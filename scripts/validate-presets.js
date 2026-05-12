@@ -17,18 +17,19 @@ let checked = 0;
 
 for (const [preset, opts] of Object.entries(PRESETS)) {
   for (const ft of FILE_TYPES) {
-    const path = join(publicDir, 'presets', preset, ft.path);
+    const relPath = ft.staticPath ?? ft.path;
+    const path = join(publicDir, 'presets', preset, relPath);
     const expected = ft.generator(opts);
 
     try {
       const actual = readFileSync(path, 'utf8');
       if (actual !== expected) {
-        console.error(`DRIFT: public/presets/${preset}/${ft.path} does not match template output`);
+        console.error(`DRIFT: public/presets/${preset}/${relPath} does not match template output`);
         drifted = true;
       }
       checked++;
     } catch (_e) {
-      console.error(`MISSING: public/presets/${preset}/${ft.path}`);
+      console.error(`MISSING: public/presets/${preset}/${relPath}`);
       drifted = true;
     }
   }

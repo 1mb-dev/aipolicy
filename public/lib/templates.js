@@ -490,10 +490,16 @@ Rules for Cursor (Chat, Composer, and Agent mode) when working in this repositor
 // Single source of truth for which files the generator emits.
 // Build scripts (generate-presets, test-presets, validate-presets) iterate over this.
 // At 3+ tools, refactor main.js + index.html to be data-driven from this list too.
+//
+// `path` is the canonical repo-relative path (used inside the ZIP download).
+// `staticPath` is where the file is served under /presets/<preset>/ for curl.
+// GitHub Pages refuses to serve `.github/` subdirectories
+// (actions/upload-pages-artifact excludes them via tar --exclude=.github),
+// so curl paths must avoid that prefix. Defaults to `path` when not set.
 export const FILE_TYPES = [
   { key: 'policy',  path: 'AI_POLICY.md',                      generator: generateAiPolicy },
   { key: 'agents',  path: 'AGENTS.md',                         generator: generateAgents },
   { key: 'claude',  path: 'CLAUDE.md',                         generator: generateClaude },
-  { key: 'copilot', path: '.github/copilot-instructions.md',   generator: generateCopilot },
-  { key: 'cursor',  path: '.cursor/rules/aipolicy.mdc',        generator: generateCursor },
+  { key: 'copilot', path: '.github/copilot-instructions.md',   staticPath: 'copilot-instructions.md', generator: generateCopilot },
+  { key: 'cursor',  path: '.cursor/rules/aipolicy.mdc',        staticPath: 'aipolicy.mdc',            generator: generateCursor },
 ];

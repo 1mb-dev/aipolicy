@@ -31,7 +31,7 @@ https://aipolicy.1mb.dev/?preset=standard&ai_usage=restricted&training_optout=ye
 
 ## CLI
 
-Download preset files directly. Files are served at the same paths you place them in your repo. Use `curl -o <path>` with `--create-dirs` for nested files so the local tree mirrors what your repo needs:
+Download preset files directly. Static curl paths are flat under each preset; use `-o <target-path>` with `--create-dirs` to land each file at the right place in your repo:
 
 ```bash
 # Root-level files
@@ -39,14 +39,14 @@ curl -O https://aipolicy.1mb.dev/presets/standard/AI_POLICY.md
 curl -O https://aipolicy.1mb.dev/presets/standard/AGENTS.md
 curl -O https://aipolicy.1mb.dev/presets/standard/CLAUDE.md
 
-# Tool config files (nested paths)
+# Tool config files (target paths in your repo are nested)
 curl --create-dirs -o .github/copilot-instructions.md \
-  https://aipolicy.1mb.dev/presets/standard/.github/copilot-instructions.md
+  https://aipolicy.1mb.dev/presets/standard/copilot-instructions.md
 curl --create-dirs -o .cursor/rules/aipolicy.mdc \
-  https://aipolicy.1mb.dev/presets/standard/.cursor/rules/aipolicy.mdc
+  https://aipolicy.1mb.dev/presets/standard/aipolicy.mdc
 ```
 
-Available presets: `open`, `standard`, `strict`. For custom configurations, use the web UI and download the ZIP.
+Available presets: `open`, `standard`, `strict`. For custom configurations, use the web UI and download the ZIP — the ZIP uses the canonical nested paths so it extracts straight into your repo with no path adjustments.
 
 ## Contributing
 

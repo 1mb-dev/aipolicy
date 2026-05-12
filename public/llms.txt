@@ -16,8 +16,9 @@ tool-specific configs (.github/copilot-instructions.md for GitHub Copilot,
 ## Endpoints
 - / — Interactive generator (select preset, customize, download ZIP)
 - /conventions.json — Convention sources and references (v1.1)
-- /presets/ — Static preset files for curl/wget download (nested paths
-  mirror real placement; use `curl --create-dirs` for tool config files)
+- /presets/<preset>/ — Static preset files for curl/wget download. Files
+  are served flat; the ZIP download from the web UI uses canonical nested
+  paths (.github/copilot-instructions.md, .cursor/rules/aipolicy.mdc).
 
 ## Presets
 - open — AI tools welcome, standard quality bar

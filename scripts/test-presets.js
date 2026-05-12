@@ -42,7 +42,9 @@ if (existsSync(tmpDir)) rmSync(tmpDir, { recursive: true });
 let fileCount = 0;
 for (const [name, opts] of Object.entries(ALL)) {
   for (const ft of FILE_TYPES) {
-    const filePath = join(tmpDir, name, ft.path);
+    // Use staticPath when set: it's what gets served at /presets/<name>/
+    // and what curl users download. Tests verify that output.
+    const filePath = join(tmpDir, name, ft.staticPath ?? ft.path);
     mkdirSync(dirname(filePath), { recursive: true });
     writeFileSync(filePath, ft.generator(opts));
     fileCount++;

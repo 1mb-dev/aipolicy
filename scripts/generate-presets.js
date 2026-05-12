@@ -15,7 +15,7 @@ const root = join(__dirname, '..');
 
 for (const [name, opts] of Object.entries(PRESETS)) {
   for (const ft of FILE_TYPES) {
-    const filePath = join(root, 'public', 'presets', name, ft.path);
+    const filePath = join(root, 'public', 'presets', name, ft.staticPath ?? ft.path);
     mkdirSync(dirname(filePath), { recursive: true });
     writeFileSync(filePath, ft.generator(opts));
   }

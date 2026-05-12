@@ -1,5 +1,21 @@
 # Changelog
 
+## v1.3.2 (2026-05-12)
+
+Hotfix: serve Copilot static curl path under a non-`.github` URL.
+
+- `actions/upload-pages-artifact` excludes any `.github/` subdirectory
+  from the deploy artifact (hardcoded `tar --exclude=.github`). The
+  v1.3.1 hidden-files flag restored `.cursor/rules/` but couldn't fix
+  `.github/`.
+- Static curl paths are now flat: `presets/<preset>/copilot-instructions.md`
+  and `presets/<preset>/aipolicy.mdc`. ZIP download still uses canonical
+  nested paths (`.github/copilot-instructions.md`,
+  `.cursor/rules/aipolicy.mdc`) so it extracts straight into a repo.
+- README curl examples updated to land each file at the right repo path
+  with `curl --create-dirs -o <target-path>`.
+- `FILE_TYPES` gains an optional `staticPath` field (defaults to `path`).
+
 ## v1.3.1 (2026-05-12)
 
 Hotfix: serve hidden directories on Pages deploy.
