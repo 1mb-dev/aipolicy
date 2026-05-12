@@ -1,20 +1,23 @@
 # aipolicy
 
-> Generate AI policy files (AI_POLICY.md, AGENTS.md, CLAUDE.md) for repositories.
+> Generate AI policy and tool config files (AI_POLICY.md, AGENTS.md,
+> CLAUDE.md, Copilot, Cursor) for repositories.
 > No install, no sign-up. Vanilla HTML/CSS/JS.
 
 ## URL
 https://aipolicy.1mb.dev
 
 ## What This Does
-Generates three markdown files that declare how AI tools should interact with
-a codebase: usage policies, agent rules, disclosure requirements, and training
-data preferences.
+Generates files that declare how AI tools should interact with a codebase:
+canonical policy (AI_POLICY.md), agent rules (AGENTS.md, CLAUDE.md), and
+tool-specific configs (.github/copilot-instructions.md for GitHub Copilot,
+.cursor/rules/aipolicy.mdc for Cursor IDE).
 
 ## Endpoints
 - / — Interactive generator (select preset, customize, download ZIP)
 - /conventions.json — Convention sources and references (v1.1)
-- /presets/ — Static preset files for curl/wget download
+- /presets/ — Static preset files for curl/wget download (nested paths
+  mirror real placement; use `curl --create-dirs` for tool config files)
 
 ## Presets
 - open — AI tools welcome, standard quality bar

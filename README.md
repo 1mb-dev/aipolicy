@@ -7,13 +7,15 @@ Generate AI policy files for your repository.
 
 **[aipolicy.1mb.dev](https://aipolicy.1mb.dev)**
 
-Creates `AI_POLICY.md`, `AGENTS.md`, and `CLAUDE.md` with three presets and full customization. No install, no sign-up -- pick a preset, download the files.
+Creates AI policy and tool config files (`AI_POLICY.md`, `AGENTS.md`, `CLAUDE.md`, Copilot, Cursor) with three presets and full customization. No install, no sign-up -- pick a preset, download the files.
 
 ## What it generates
 
-- **AI_POLICY.md** -- How AI tools are used in your project: usage policy, code acceptance, CI/CD rules, training data opt-out.
-- **AGENTS.md** -- Instructions for AI coding agents: code style, testing, restricted paths, review policy.
-- **CLAUDE.md** -- Claude Code configuration. References AGENTS.md rules.
+- **`AI_POLICY.md`** -- How AI tools are used in your project: usage policy, code acceptance, CI/CD rules, training data opt-out.
+- **`AGENTS.md`** -- Instructions for AI coding agents: code style, testing, restricted paths, review policy.
+- **`CLAUDE.md`** -- Claude Code configuration. References AGENTS.md rules.
+- **`.github/copilot-instructions.md`** -- Project-wide instructions for GitHub Copilot.
+- **`.cursor/rules/aipolicy.mdc`** -- Cursor IDE rules file (Chat, Composer, and Agent mode).
 
 ## Presets
 
@@ -29,12 +31,19 @@ https://aipolicy.1mb.dev/?preset=standard&ai_usage=restricted&training_optout=ye
 
 ## CLI
 
-Download preset files directly:
+Download preset files directly. Files are served at the same paths you place them in your repo. Use `curl -o <path>` with `--create-dirs` for nested files so the local tree mirrors what your repo needs:
 
 ```bash
+# Root-level files
 curl -O https://aipolicy.1mb.dev/presets/standard/AI_POLICY.md
 curl -O https://aipolicy.1mb.dev/presets/standard/AGENTS.md
 curl -O https://aipolicy.1mb.dev/presets/standard/CLAUDE.md
+
+# Tool config files (nested paths)
+curl --create-dirs -o .github/copilot-instructions.md \
+  https://aipolicy.1mb.dev/presets/standard/.github/copilot-instructions.md
+curl --create-dirs -o .cursor/rules/aipolicy.mdc \
+  https://aipolicy.1mb.dev/presets/standard/.cursor/rules/aipolicy.mdc
 ```
 
 Available presets: `open`, `standard`, `strict`. For custom configurations, use the web UI and download the ZIP.
