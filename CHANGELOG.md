@@ -1,5 +1,33 @@
 # Changelog
 
+## v1.3.0 (2026-05-12)
+
+Ecosystem coverage: Copilot and Cursor.
+
+- Add `.github/copilot-instructions.md` template (GitHub Copilot project rules)
+- Add `.cursor/rules/aipolicy.mdc` template (Cursor IDE rules, YAML frontmatter)
+- Two new preview tabs, full keyboard navigation across all five files
+- ZIP and static preset files now use nested paths mirroring real placement
+- New `FILE_TYPES` export as single source of truth for build scripts
+- New automated ZIP extraction test in `make check` (validates nested-path
+  unzip across platforms via production code path)
+- Backwards compatible: existing URL params, ZIP filename, and three original
+  generated files unchanged
+
+## v1.2.2 (2026-03-28)
+
+Usability audit and post-release polish.
+
+- Accessibility: external link `rel="noopener"`, WCAG touch targets (44px),
+  success color contrast fix, nav landmark, customize-toggle prominence
+- `llms.txt` with `<link rel="alternate">` discoverability
+- Copyright year in consolidated footer
+- Preset quick links on 404 page
+
+## v1.2.1 (2026-03-22)
+
+- Fix conventions.json v1.1: broken URLs, add notable guides
+
 ## v1.2.0 (2026-03-21)
 
 Template evolution informed by real-world policies.
