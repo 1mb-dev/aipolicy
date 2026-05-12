@@ -35,6 +35,10 @@ jobs:
         uses: actions/upload-pages-artifact@v5
         with:
           path: public
+          # Required since v1.3.0 introduces presets/<p>/.github/ and
+          # .cursor/rules/ directories (leading-dot dirs). v5 defaults this
+          # to false, which silently drops hidden files from the artifact.
+          include-hidden-files: true
 
       - name: Deploy to GitHub Pages
         id: deployment

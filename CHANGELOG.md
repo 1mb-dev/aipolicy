@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.3.1 (2026-05-12)
+
+Hotfix: serve hidden directories on Pages deploy.
+
+- Set `include-hidden-files: true` on `actions/upload-pages-artifact`.
+  v5 of that action defaults the flag to `false`, which silently dropped
+  the new `presets/<p>/.github/` and `presets/<p>/.cursor/rules/`
+  directories introduced by v1.3.0. Static curl paths for those files
+  returned 404 in the v1.3.0 deploy; this restores them.
+
 ## v1.3.0 (2026-05-12)
 
 Ecosystem coverage: Copilot and Cursor.
