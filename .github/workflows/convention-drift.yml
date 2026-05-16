@@ -2,11 +2,13 @@ name: Convention Drift Check
 
 # Drift detection scope policy (set 2026-05-16):
 # - Monitored: 3 git-hosted markdown reference impls (via hashUrl raw URLs) +
-#   4 HTML guidance pages (agents.md, linuxfoundation, OSAID, CNCF).
-# - KILL CRITERION: If runs on 2026-05-18 AND 2026-05-25 both flag the HTML
-#   guidance pages (agents.md, LF, OSAID, CNCF) as drifted, descope this cron
-#   to git-hosted markdown only and migrate HTML monitoring to a quarterly
-#   maintainer checklist (Fork C). See issue #23 thread for rationale.
+#   5 HTML pages (agents.md, linuxfoundation, OpenSSF, ASF, CNCF).
+# - OSAID descoped: 3 consecutive curl fetches returned 3 different hashes
+#   (dynamic HTML content). Tracked in conventions.json with monitor:false.
+# - KILL CRITERION: If runs on 2026-05-18 AND 2026-05-25 both flag any of the
+#   remaining HTML pages as drifted, descope this cron to git-hosted markdown
+#   only and migrate HTML monitoring to a quarterly maintainer checklist
+#   (Fork C). See issue #23 thread for rationale.
 
 on:
   schedule:

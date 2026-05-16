@@ -31,7 +31,8 @@
       "name": "Open Source AI Definition (OSAID)",
       "url": "https://opensource.org/ai/open-source-ai-definition",
       "type": "specification",
-      "description": "OSI's canonical definition of Open Source AI (v1.0, Oct 2024). Establishes the four freedoms: use, study, modify, share."
+      "description": "OSI's canonical definition of Open Source AI (v1.0, Oct 2024). Establishes the four freedoms: use, study, modify, share.",
+      "monitor": false
     },
     {
       "name": "CNCF: Sustaining Open Source in the Age of Generative AI",
