@@ -1,5 +1,13 @@
 name: Convention Drift Check
 
+# Drift detection scope policy (set 2026-05-16):
+# - Monitored: 3 git-hosted markdown reference impls (via hashUrl raw URLs) +
+#   4 HTML guidance pages (agents.md, linuxfoundation, OSAID, CNCF).
+# - KILL CRITERION: If runs on 2026-05-18 AND 2026-05-25 both flag the HTML
+#   guidance pages (agents.md, LF, OSAID, CNCF) as drifted, descope this cron
+#   to git-hosted markdown only and migrate HTML monitoring to a quarterly
+#   maintainer checklist (Fork C). See issue #23 thread for rationale.
+
 on:
   schedule:
     - cron: "0 8 * * 1"
@@ -19,8 +27,8 @@ jobs:
         uses: actions/cache@v5
         with:
           path: .convention-hashes
-          key: convention-hashes-${{ github.run_id }}
-          restore-keys: convention-hashes-
+          key: convention-hashes-v2-${{ github.run_id }}
+          restore-keys: convention-hashes-v2-
           save-always: true
 
       - name: Check for drift
@@ -34,7 +42,7 @@ jobs:
           printf "Convention source content has changed since last check.\n\n" > "$body_file"
           printf "| Source | URL |\n|--------|-----|\n" >> "$body_file"
 
-          jq -r '.sources[] | "\(.name)|\(.url)"' public/conventions.json | while IFS='|' read -r name url; do
+          jq -r '.sources[] | select(.monitor != false) | "\(.name)|\(.hashUrl // .url)"' public/conventions.json | while IFS='|' read -r name url; do
             slug=$(printf '%s' "$name" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
             hash_file=".convention-hashes/${slug}.sha256"
 
