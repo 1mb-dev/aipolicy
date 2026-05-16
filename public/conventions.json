@@ -1,7 +1,7 @@
 {
-  "version": "1.1",
+  "version": "1.2",
   "description": "Well-known sources for AI policy file conventions. Maintained by aipolicy.1mb.dev.",
-  "last_updated": "2026-03-22",
+  "last_updated": "2026-05-16",
   "sources": [
     {
       "name": "AGENTS.md Specification",
@@ -43,23 +43,27 @@
       "name": "Open Source AI Contribution Policies",
       "url": "https://github.com/melissawm/open-source-ai-contribution-policies",
       "type": "catalog",
-      "description": "Curated catalog of 50+ real-world AI contribution policies across open-source projects. Categorized by stance: accepting, restricting, or rejecting."
+      "description": "Curated catalog of 50+ real-world AI contribution policies across open-source projects. Categorized by stance: accepting, restricting, or rejecting.",
+      "monitor": false
     },
     {
       "name": "Kubewarden AI Policy",
       "url": "https://github.com/kubewarden/community/blob/main/AI_POLICY.md",
+      "hashUrl": "https://raw.githubusercontent.com/kubewarden/community/main/AI_POLICY.md",
       "type": "reference-implementation",
       "description": "CNCF project policy requiring Assisted-by trailers, human accountability, and engagement with reviewers."
     },
     {
       "name": "CloudNativePG AI Policy",
       "url": "https://github.com/cloudnative-pg/governance/blob/main/AI_POLICY.md",
+      "hashUrl": "https://raw.githubusercontent.com/cloudnative-pg/governance/main/AI_POLICY.md",
       "type": "reference-implementation",
       "description": "Structured AI policy prohibiting unvetted boilerplate, hallucinated features, and shotgun refactoring."
     },
     {
       "name": "Kyverno AI Usage Policy",
       "url": "https://github.com/kyverno/community/blob/main/AI_USAGE_POLICY.md",
+      "hashUrl": "https://raw.githubusercontent.com/kyverno/community/main/AI_USAGE_POLICY.md",
       "type": "reference-implementation",
       "description": "Comprehensive policy with PR limits, disclosure trailers, and rules scoped to accepted issues only."
     }
