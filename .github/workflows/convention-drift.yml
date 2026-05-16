@@ -24,12 +24,11 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Restore hash cache
-        uses: actions/cache@v5
+        uses: actions/cache/restore@v5
         with:
           path: .convention-hashes
           key: convention-hashes-v2-${{ github.run_id }}
           restore-keys: convention-hashes-v2-
-          save-always: true
 
       - name: Check for drift
         id: drift
@@ -91,3 +90,10 @@ jobs:
             --title "Convention drift detected" \
             --body-file "${{ steps.drift.outputs.body_file }}" \
             --label "convention-drift"
+
+      - name: Save hash cache
+        if: always()
+        uses: actions/cache/save@v5
+        with:
+          path: .convention-hashes
+          key: convention-hashes-v2-${{ github.run_id }}
