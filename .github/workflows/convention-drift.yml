@@ -65,8 +65,17 @@ jobs:
             echo "body_file=$body_file" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Create issue
+      - name: Check for existing drift issue
+        id: existing
         if: steps.drift.outputs.drifted == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          count=$(gh issue list --label convention-drift --state open --json number --jq 'length')
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Create issue
+        if: steps.drift.outputs.drifted == 'true' && steps.existing.outputs.count == '0'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
