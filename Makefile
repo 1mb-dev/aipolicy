@@ -29,3 +29,7 @@ install: ## Install dev dependencies
 
 clean: ## Remove generated files and node_modules
 	rm -rf node_modules .tmp-test-presets
+
+.PHONY: setup
+setup: ## Bootstrap repo: install git hooks
+	@scripts/setup.sh
