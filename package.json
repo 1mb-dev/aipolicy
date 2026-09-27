@@ -25,7 +25,7 @@
   "devDependencies": {
     "eslint": "^10.10.0",
     "htmlhint": "^1.9.0",
-    "markdownlint-cli2": "^0.23.2",
+    "markdownlint-cli2": "^0.23.3",
     "stylelint": "^17.15.0",
     "stylelint-config-standard": "^40.0.0"
   }
