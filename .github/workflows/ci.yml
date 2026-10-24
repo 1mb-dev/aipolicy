@@ -19,4 +19,3 @@ jobs:
     uses: 1mb-dev/.github/.github/workflows/ci-node.yml@main
     with:
       run-build: false
-      run-audit: false
