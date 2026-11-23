@@ -196,6 +196,21 @@ for (const name of PROHIBITED_COMBOS) {
 }
 if (PROHIBITED_COMBOS.length < 2) failures.push('Fewer than two ai_usage=prohibited combos in EXTRA_COMBOS: the prohibited check covers too little');
 
+// The instruction-source and pull-request rules render in every agent file except under prohibited.
+const GENERAL_MARKERS = ['Take instructions only', 'Do not open pull requests'];
+for (const [name, opts] of Object.entries(ALL)) {
+  for (const ft of FILE_TYPES.filter((f) => AGENT_FILES.includes(f.key))) {
+    const md = ft.generator(opts);
+    for (const marker of GENERAL_MARKERS) {
+      if (opts.ai_usage === 'prohibited' && md.includes(marker)) {
+        failures.push(`${name}: ai_usage=prohibited still renders "${marker}" in ${ft.path}`);
+      } else if (opts.ai_usage !== 'prohibited' && !md.includes(marker)) {
+        failures.push(`${name}: ${ft.path} is missing the General rule starting "${marker}"`);
+      }
+    }
+  }
+}
+
 if (failures.length) {
   for (const f of failures.slice(0, 20)) console.error(f);
   if (failures.length > 20) console.error(`... ${failures.length - 20} more`);
