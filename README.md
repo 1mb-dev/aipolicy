@@ -12,7 +12,7 @@ Creates AI policy and tool config files (`AI_POLICY.md`, `AGENTS.md`, `CLAUDE.md
 
 - **`AI_POLICY.md`**: How AI tools are used in your project: usage policy, code acceptance, CI/CD rules, training data opt-out.
 - **`AGENTS.md`**: Instructions for AI coding agents: code style, testing, restricted paths, review policy.
-- **`CLAUDE.md`**: Claude Code configuration. References AGENTS.md rules.
+- **`CLAUDE.md`**: Claude Code configuration. Imports AGENTS.md.
 - **`.github/copilot-instructions.md`**: Project-wide instructions for GitHub Copilot.
 - **`.cursor/rules/aipolicy.mdc`**: Cursor IDE rules file (Chat, Composer, and Agent mode).
 
