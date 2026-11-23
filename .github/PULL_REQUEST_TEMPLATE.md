@@ -1,12 +1,3 @@
-## What
-
-<!-- Brief description of the change -->
-
-## Why
-
-<!-- What problem does this solve? -->
-
-## Test
+<!-- One sentence on what changes. If generated policy files change, one more on what adopters get. -->
 
 - [ ] `make check` passes
-- [ ] Tested in browser (if UI change)

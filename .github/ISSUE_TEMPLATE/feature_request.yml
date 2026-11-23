@@ -1,11 +1,11 @@
-name: Feature Request
-description: Suggest an improvement or new feature
+name: Feature request
+description: A change to the site or the generated files
 labels: [enhancement]
 body:
   - type: textarea
     id: description
     attributes:
-      label: What would you like?
-      placeholder: Describe the feature and why it would be useful.
+      label: What would you change
+      placeholder: The change, and the repository or tool it is for.
     validations:
       required: true

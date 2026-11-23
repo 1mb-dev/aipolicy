@@ -1,24 +1,21 @@
-name: Bug Report
-description: Something isn't working as expected
+name: Bug report
+description: Something does not work as expected
 labels: [bug]
 body:
   - type: textarea
     id: description
     attributes:
-      label: What happened?
-      placeholder: Describe the bug and what you expected instead.
+      label: What happened
+      placeholder: What you did, what you expected, what you saw.
     validations:
       required: true
-  - type: textarea
-    id: reproduce
+  - type: input
+    id: url
     attributes:
-      label: Steps to reproduce
-      placeholder: |
-        1. Go to ...
-        2. Click ...
-        3. See error
+      label: Page URL
+      description: The URL carries the selected preset and options.
   - type: input
     id: browser
     attributes:
-      label: Browser / OS
-      placeholder: e.g., Chrome 125 / macOS
+      label: Browser and OS
+      placeholder: Chrome 125, macOS
