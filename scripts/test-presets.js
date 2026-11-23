@@ -33,6 +33,11 @@ const EXTRA_COMBOS = {
     ai_usage: 'prohibited',
     ai_cicd: 'prohibited',
   },
+  'open-prohibited': {
+    ...PRESETS.open,
+    ai_usage: 'prohibited',
+    ai_code: 'requires-attribution',
+  },
 };
 
 const ALL = { ...PRESETS, ...EXTRA_COMBOS };
@@ -175,6 +180,21 @@ const IMPORT_CONTROLS = {
 for (const [name, bad] of Object.entries(IMPORT_CONTROLS)) {
   if (importsAgents(bad)) failures.push(`importsAgents accepted a file without a live import (${name}). Fix the check in scripts/test-presets.js`);
 }
+
+// ai_usage=prohibited: every file says AI is not used, and none tells a contributor how to use it.
+const PROHIBITED_COMBOS = Object.keys(ALL).filter((name) => ALL[name].ai_usage === 'prohibited');
+const AGENT_FILES = ['agents', 'copilot', 'cursor'];
+for (const name of PROHIBITED_COMBOS) {
+  for (const ft of FILE_TYPES) {
+    const md = ft.generator(ALL[name]);
+    const want = ft.key === 'policy' ? 'AI-generated code is not accepted.' : AGENT_FILES.includes(ft.key) ? 'AI tools are not permitted' : null;
+    if (want && !md.includes(want)) failures.push(`${name}: ai_usage=prohibited does not render "${want}" in ${ft.path}`);
+    for (const bad of ['Assisted-by', 'If you use AI tools']) {
+      if (md.includes(bad)) failures.push(`${name}: ai_usage=prohibited still renders "${bad}" in ${ft.path}`);
+    }
+  }
+}
+if (PROHIBITED_COMBOS.length < 2) failures.push('Fewer than two ai_usage=prohibited combos in EXTRA_COMBOS: the prohibited check covers too little');
 
 if (failures.length) {
   for (const f of failures.slice(0, 20)) console.error(f);

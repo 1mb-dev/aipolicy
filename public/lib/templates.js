@@ -104,17 +104,23 @@ const RESTRICTED_RULES = [
 ];
 const restrictedRules = () => RESTRICTED_RULES.map((r) => `- ${r}\n`).join('');
 
+// ai_usage=prohibited: the whole of AGENTS.md, copilot-instructions.md and aipolicy.mdc.
+const PROHIBITED = 'AI tools are not permitted for contributions to this repository. Do not generate code, commits, pull requests, issues or review comments for it.\n';
+
 // No HTML escaping -- output goes into textarea.value (inherently safe)
 // and into .md files on disk. HTML entities would corrupt the markdown.
 
 export function generateAiPolicy(opts) {
   const optout = opts.training_optout === 'yes';
+  const prohibited = opts.ai_usage === 'prohibited';
 
   let md = `# AI Policy
 
 ## Accountability
 
-You are responsible for every line of code you submit, regardless of how it was produced. If you use AI tools, review and verify all output before committing.
+You are responsible for every line of code you submit, regardless of how it was produced.`;
+  if (!prohibited) md += ` If you use AI tools, review and verify all output before committing.`;
+  md += `
 
 ## AI Tool Usage
 
@@ -132,7 +138,9 @@ You are responsible for every line of code you submit, regardless of how it was 
 
   md += `## AI-Generated Code\n\n`;
 
-  if (opts.ai_code === 'accepted') {
+  if (prohibited) {
+    md += `AI-generated code is not accepted.\n\n`;
+  } else if (opts.ai_code === 'accepted') {
     md += `AI-generated code is accepted under the standard contribution workflow.\n\n`;
   } else if (opts.ai_code === 'requires-review') {
     md += `AI-generated code must be reviewed by a human maintainer before merging. Keep changes atomic -- you must be able to explain any line on request.\n\n`;
@@ -143,8 +151,8 @@ You are responsible for every line of code you submit, regardless of how it was 
   }
 
   // Disclosure (skip if requires-attribution already shows the trailer)
-  if (opts.ai_code === 'requires-attribution') {
-    // already covered above
+  if (prohibited || opts.ai_code === 'requires-attribution') {
+    // prohibited: nothing to disclose; requires-attribution: trailer shown above
   } else if (opts.disclosure === 'required' && opts.ai_code === 'not-accepted') {
     md += `## Disclosure\n\nIf AI tools were used in any capacity (research, debugging, understanding code), note it in the commit message:\n\n\`\`\`text\nAssisted-by: <tool name>\n\`\`\`\n\n`;
   } else if (opts.disclosure === 'required') {
@@ -154,7 +162,7 @@ You are responsible for every line of code you submit, regardless of how it was 
   }
 
   // Prohibited uses for non-open presets
-  if (opts.ai_usage !== 'permitted') {
+  if (opts.ai_usage !== 'permitted' && !prohibited) {
     md += `## Prohibited Uses\n\n`;
     md += `- Submitting AI output you have not read and understood\n`;
     md += `- Using AI to generate code that circumvents tests or CI checks\n`;
@@ -188,14 +196,16 @@ You are responsible for every line of code you submit, regardless of how it was 
   }
 
   // Licensing -- only when AI code is accepted in some form
-  if (opts.ai_code !== 'not-accepted') {
+  if (opts.ai_code !== 'not-accepted' && !prohibited) {
     md += `## Licensing\n\nAI-generated contributions must be compatible with this project's license. Contributors must be able to certify their submissions under the project's contribution terms.\n\n`;
   }
 
   // Enforcement for non-open presets
   if (opts.ai_usage !== 'permitted') {
     md += `## Enforcement\n\n`;
-    if (opts.ai_usage === 'restricted') {
+    if (prohibited) {
+      md += `Maintainers may close AI-generated PRs without detailed feedback.\n\n`;
+    } else if (opts.ai_usage === 'restricted') {
       md += `Maintainers may close AI-generated PRs without detailed feedback. Repeated low-quality AI submissions may result in the contributor being asked to stop using AI tools for contributions.\n\n`;
     } else {
       md += `Maintainers may close AI-generated PRs that do not meet these standards without detailed feedback.\n\n`;
@@ -212,6 +222,7 @@ export function generateAgents(opts) {
   let md = `# Agents
 
 `;
+  if (opts.ai_usage === 'prohibited') return md + PROHIBITED + FOOTER;
 
   if (opts.ai_code === 'not-accepted') {
     md += `Rules for AI coding agents assisting with this repository. AI-generated code is not accepted -- these rules cover use of AI for research, debugging, and understanding the codebase.\n`;
@@ -294,6 +305,7 @@ export function generateAgents(opts) {
 }
 
 export function generateClaude(opts) {
+  if (opts.ai_usage === 'prohibited') return `# CLAUDE.md\n\n@AGENTS.md\n${FOOTER}`;
   if (opts.claude_handling === 'symlink') {
     return `# CLAUDE.md
 
@@ -322,6 +334,8 @@ ${FOOTER}`;
 }
 
 export function generateCopilot(opts) {
+  if (opts.ai_usage === 'prohibited') return `# GitHub Copilot Instructions\n\n${PROHIBITED}${FOOTER}`;
+
   let md = `# GitHub Copilot Instructions
 
 Project-wide instructions for GitHub Copilot. These rules apply to code completions, chat, and agent-mode interactions.
@@ -388,11 +402,14 @@ Project-wide instructions for GitHub Copilot. These rules apply to code completi
 export function generateCursor(opts) {
   // YAML frontmatter + HTML comment explaining the alwaysApply trade-off.
   // Self-contained: do not reference external AGENTS.md (avoids staleness).
-  let md = `---
+  const frontmatter = `---
 description: AI policy and agent rules for this project
 alwaysApply: true
 ---
+`;
+  if (opts.ai_usage === 'prohibited') return `${frontmatter}\n# Project Rules\n\n${PROHIBITED}${FOOTER}`;
 
+  let md = `${frontmatter}
 <!--
   alwaysApply: true loads these rules in every Cursor conversation.
   Set alwaysApply: false (and add a globs: pattern) to load only when
