@@ -7,6 +7,7 @@ import { readFileSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { PRESETS, FILE_TYPES } from '../public/lib/templates.js';
+import { ROOT_OPTS, ROOT_FILES } from './root-policy.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
@@ -35,9 +36,23 @@ for (const [preset, opts] of Object.entries(PRESETS)) {
   }
 }
 
+for (const ft of ROOT_FILES) {
+  const expected = ft.generator(ROOT_OPTS);
+  try {
+    if (readFileSync(join(root, ft.path), 'utf8') !== expected) {
+      console.error(`DRIFT: ${ft.path} is generated from the Standard preset: edit public/lib/templates.js, not this file`);
+      drifted = true;
+    }
+    checked++;
+  } catch (_e) {
+    console.error(`MISSING: ${ft.path}`);
+    drifted = true;
+  }
+}
+
 if (drifted) {
   console.error('\nRun "make generate" to update preset files.');
   process.exit(1);
 } else {
-  console.log(`All ${checked} preset files match template output.`);
+  console.log(`All ${checked} preset and root policy files match template output.`);
 }

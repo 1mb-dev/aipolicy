@@ -9,6 +9,7 @@ import { writeFileSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { PRESETS, FILE_TYPES } from '../public/lib/templates.js';
+import { ROOT_OPTS, ROOT_FILES } from './root-policy.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
@@ -20,6 +21,11 @@ for (const [name, opts] of Object.entries(PRESETS)) {
     writeFileSync(filePath, ft.generator(opts));
   }
   console.log(`Generated public/presets/${name}/ (${FILE_TYPES.length} files)`);
+}
+
+for (const ft of ROOT_FILES) {
+  writeFileSync(join(root, ft.path), ft.generator(ROOT_OPTS));
+  console.log(`Generated ${ft.path} (Standard preset)`);
 }
 
 console.log('Done.');
