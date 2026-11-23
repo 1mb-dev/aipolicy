@@ -6,7 +6,9 @@
 4. Run `make check` (lint + preset validation) and fix any issues.
 5. Open a pull request.
 
-If your change touches templates in `public/lib/templates.js`, run `make generate` to regenerate the static preset files.
+If your change touches templates in `public/lib/templates.js`, run `make generate` to regenerate the static preset files. It also writes this repository's `AI_POLICY.md` and `AGENTS.md` from the Standard preset: edit the templates, not those files, or `make check` fails.
+
+For UI changes, run `make serve` (port 8919) and check by hand: each preset across all tabs, the URL round-trip and the ZIP download.
 
 ## Voice
 
