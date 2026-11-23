@@ -7,3 +7,14 @@
 5. Open a pull request.
 
 If your change touches templates in `public/lib/templates.js`, run `make generate` to regenerate the static preset files.
+
+## Voice
+
+Applies to site copy and meta, aria-labels, `public/llms.txt`, `README.md`, new CHANGELOG entries, commits and PRs. Generated policy text (`public/lib/templates.js`, `public/presets/`) is out of scope: it is the adopter's voice, and changing it is a product change.
+
+- The site describes the files it generates and keeps its own opinions out. No persona, no selling.
+- Short sentences. A name or number over an adjective. No I/we. Sentence case for headings, labels and titles.
+- No em-dash, no ` -- ` used as a dash, and no time words (current, currently, now, latest, recently, today). Use a full stop, colon or comma for a dash, ` · ` in `<title>`, and a version or date for a time word. `make check` fails on any of these in `public/*.html`, `public/llms.txt` and `README.md`.
+- Claim only what was run or can be cited.
+- Preset descriptions: the cards in `public/index.html` are canonical; README and llms.txt copy them verbatim.
+- Commits: `<type>(<scope>): <subject>`, subject only. CHANGELOG: one line per change.

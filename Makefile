@@ -9,7 +9,7 @@ serve: ## Start local dev server on port 8919
 generate: ## Regenerate static preset files from templates
 	node scripts/generate-presets.js
 
-lint: ## Run all linters (html, css, js, md)
+lint: ## Run all linters (html, css, js, md, voice)
 	npm run lint
 
 lint-fix: ## Run linters with auto-fix where possible

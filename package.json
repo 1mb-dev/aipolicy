@@ -7,11 +7,12 @@
   "scripts": {
     "serve": "python3 -m http.server 8919 -d public",
     "generate": "node scripts/generate-presets.js",
-    "lint": "npm run lint:html && npm run lint:css && npm run lint:js && npm run lint:md",
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js && npm run lint:md && npm run lint:voice",
     "lint:html": "htmlhint public/*.html",
     "lint:css": "stylelint 'public/styles/**/*.css'",
     "lint:js": "eslint public/scripts/ public/lib/",
     "lint:md": "markdownlint-cli2 '*.md' 'public/presets/**/*.md' 'public/presets/**/*.mdc'",
+    "lint:voice": "f=0; grep -nwiE 'current|currently|recently|latest|today|now' public/*.html public/llms.txt README.md; [ $? = 1 ] || f=1; grep -nE '—| -- ' public/*.html public/llms.txt README.md; [ $? = 1 ] || f=1; [ $f = 0 ] || { echo 'Voice rules: .github/CONTRIBUTING.md#voice' >&2; exit 1; }",
     "lint-fix:css": "stylelint 'public/styles/**/*.css' --fix",
     "lint-fix:js": "eslint public/scripts/ public/lib/ --fix",
     "lint-fix:md": "markdownlint-cli2 --fix '*.md' 'public/presets/**/*.md'",
