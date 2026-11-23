@@ -1,7 +1,7 @@
 {
   "version": "1.2",
   "description": "Well-known sources for AI policy file conventions. Maintained by aipolicy.1mb.dev.",
-  "last_updated": "2026-05-16",
+  "last_updated": "2026-11-23",
   "sources": [
     {
       "name": "AGENTS.md Specification",
@@ -50,6 +50,41 @@
       "url": "https://github.com/melissawm/open-source-ai-contribution-policies",
       "type": "catalog",
       "description": "Curated catalog of 50+ real-world AI contribution policies across open-source projects. Categorized by stance: accepting, restricting, or rejecting.",
+      "monitor": false
+    },
+    {
+      "name": "Claude Code Memory",
+      "url": "https://code.claude.com/docs/en/memory",
+      "type": "tool-documentation",
+      "description": "How Claude Code loads CLAUDE.md files. When a CLAUDE.md exists, AGENTS.md loads through an @AGENTS.md import.",
+      "monitor": false
+    },
+    {
+      "name": "GitHub Copilot Repository Instructions",
+      "url": "https://docs.github.com/en/copilot/how-tos/configure-custom-instructions/add-repository-instructions",
+      "type": "tool-documentation",
+      "description": "Repository-wide .github/copilot-instructions.md and the AGENTS.md files Copilot agents read.",
+      "monitor": false
+    },
+    {
+      "name": "Cursor Rules",
+      "url": "https://cursor.com/docs/context/rules",
+      "type": "tool-documentation",
+      "description": "Project rules in .cursor/rules/*.mdc with description, globs and alwaysApply frontmatter. Cursor also reads AGENTS.md.",
+      "monitor": false
+    },
+    {
+      "name": "OWASP LLM01: Prompt Injection",
+      "url": "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+      "type": "guidance",
+      "description": "OWASP Top 10 for LLM Applications entry on direct and indirect prompt injection and its mitigations.",
+      "monitor": false
+    },
+    {
+      "name": "Claude Code Security",
+      "url": "https://code.claude.com/docs/en/security",
+      "type": "tool-documentation",
+      "description": "Claude Code permissions, prompt-injection safeguards and practices for working with untrusted content.",
       "monitor": false
     },
     {
