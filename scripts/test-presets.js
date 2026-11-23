@@ -120,7 +120,7 @@ for (const ft of FILE_TYPES) {
     const err = structureBreak(want, ft.generator({ ...BENIGN, restricted_paths: v }));
     if (err) structureFailure(ft.path, 'restricted_paths', v, err);
   }
-  for (const v of ['`', ' , , ', '``, ', '\u200B', '\u200B,\u2066', '\u200D', '\u3164', '\uFE0F,\u200C']) {
+  for (const v of ['`', ' , , ', '``, ', '\u200B', '\u200B,\u2066', '\u200D', '\u3164', '\uFE0F,\u200C', '`\u200D`', '` `']) {
     if (ft.generator({ ...BENIGN, restricted_paths: v }).includes('## Restricted Paths')) {
       structureFailure(ft.path, 'restricted_paths', v, 'empty Restricted Paths section');
     }

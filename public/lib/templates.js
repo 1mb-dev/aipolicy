@@ -95,7 +95,7 @@ const codeStyleSection = (s) => {
   const f = fenceFor(v);
   return `\n## Code Style\n\n${f}text\n${v}\n${f}\n`;
 };
-const pathList = (s) => String(s ?? '').split(',').map((p) => oneLine(p).replace(/`/g, '')).filter(Boolean);
+const pathList = (s) => String(s ?? '').split(',').map((p) => oneLine(p.replace(/`/g, ''))).filter(Boolean);
 
 // ai_usage=restricted: one list for AGENTS.md, copilot-instructions.md and aipolicy.mdc.
 const RESTRICTED_RULES = [
