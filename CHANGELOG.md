@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.3.3 (2026-11-23)
+
+- `CLAUDE.md` imports `AGENTS.md` and drops the Testing, Restricted and Scope sections.
+- `AGENTS.md`, `copilot-instructions.md`, `aipolicy.mdc`: four new General rules: instruction sources, pull requests and issues, secrets, package names.
+- `AGENTS.md`, `copilot-instructions.md`, `aipolicy.mdc`: restricted AI usage renders one shared rule list.
+- `copilot-instructions.md`, `aipolicy.mdc`: restricted paths read "Do not read or modify:", as `AGENTS.md` does.
+- `AGENTS.md`, `copilot-instructions.md`, `aipolicy.mdc`: Review is omitted when review requirements are none.
+- `copilot-instructions.md`, `aipolicy.mdc`: the strict intro states AI-generated code is not accepted.
+- Prohibited AI usage: `AI_POLICY.md` drops Disclosure, Prohibited Uses and Licensing; the agent files carry one statement.
+- `AI_POLICY.md`: Accountability adds the pull-request-and-issue sentence; Licensing covers tool terms and third-party material; the CI/CD line drops deployment; strict drops two duplicate lines.
+- `AGENTS.md`: the Setup placeholder is an HTML comment; `aipolicy.mdc`: the `alwaysApply` comment is removed.
+- Footer drops `· v1.0`.
+- Code style renders in a fenced block; option text stays on one line and loses invisible characters (bidi, zero-width, tag, variation selectors) except ZWNJ and ZWJ.
+- `conventions.json` adds five `monitor: false` sources.
+- Site: README CLAUDE.md line; restricted-paths description.
+- This repository's `AI_POLICY.md` and `AGENTS.md` are generated from the Standard preset.
+
 ## v1.3.2 (2026-05-12)
 
 Hotfix: serve Copilot static curl path under a non-`.github` URL.
