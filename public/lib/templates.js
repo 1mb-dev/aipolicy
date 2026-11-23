@@ -94,6 +94,16 @@ const codeStyleSection = (s) => {
 };
 const pathList = (s) => String(s ?? '').split(',').map((p) => oneLine(p).replace(/`/g, '')).filter(Boolean);
 
+// ai_usage=restricted: one list for AGENTS.md, copilot-instructions.md and aipolicy.mdc.
+const RESTRICTED_RULES = [
+  'Ask for clarification rather than guessing at intent',
+  'Do not create new files or public APIs without explicit approval',
+  'Do not modify build, CI, or release configuration',
+  'Do not generate PR descriptions, review comments, or issue responses',
+  'If a task needs design decisions, stop and describe the options instead of choosing',
+];
+const restrictedRules = () => RESTRICTED_RULES.map((r) => `- ${r}\n`).join('');
+
 // No HTML escaping -- output goes into textarea.value (inherently safe)
 // and into .md files on disk. HTML entities would corrupt the markdown.
 
@@ -222,9 +232,7 @@ export function generateAgents(opts) {
   if (opts.ai_usage === 'permitted') {
     md += `- Ask for clarification when requirements are ambiguous\n`;
   } else if (opts.ai_usage === 'restricted') {
-    md += `- Ask for clarification rather than guessing at intent\n`;
-    md += `- Do not create new files or public APIs without explicit approval\n`;
-    md += `- Do not generate PR descriptions, review comments, or issue responses\n`;
+    md += restrictedRules();
   } else {
     md += `- Ask for clarification when requirements are ambiguous\n`;
     md += `- Do not generate PR descriptions or review comments on others' code\n`;
@@ -356,9 +364,7 @@ Project-wide instructions for GitHub Copilot. These rules apply to code completi
   if (opts.ai_usage === 'permitted') {
     md += `- Ask for clarification when requirements are ambiguous\n`;
   } else if (opts.ai_usage === 'restricted') {
-    md += `- Ask for clarification rather than guessing at intent\n`;
-    md += `- Do not generate PR descriptions, review comments, or issue responses\n`;
-    md += `- Do not create new public APIs without explicit approval\n`;
+    md += restrictedRules();
   } else {
     md += `- Ask for clarification when requirements are ambiguous\n`;
     md += `- Do not generate PR descriptions or review comments on others' code\n`;
@@ -435,9 +441,7 @@ Rules for Cursor (Chat, Composer, and Agent mode) when working in this repositor
   if (opts.ai_usage === 'permitted') {
     md += `- Ask for clarification when requirements are ambiguous\n`;
   } else if (opts.ai_usage === 'restricted') {
-    md += `- Ask for clarification rather than guessing at intent\n`;
-    md += `- Do not create new files or public APIs without explicit approval\n`;
-    md += `- Do not propose changes to build, CI, or release configuration\n`;
+    md += restrictedRules();
   } else {
     md += `- Ask for clarification when requirements are ambiguous\n`;
     md += `- Do not generate PR descriptions or review comments on others' code\n`;

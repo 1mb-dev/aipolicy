@@ -11,7 +11,9 @@ Rules for AI coding agents assisting with this repository. AI-generated code is 
 - Keep changes atomic -- one concern per commit
 - Ask for clarification rather than guessing at intent
 - Do not create new files or public APIs without explicit approval
+- Do not modify build, CI, or release configuration
 - Do not generate PR descriptions, review comments, or issue responses
+- If a task needs design decisions, stop and describe the options instead of choosing
 
 ## Setup
 

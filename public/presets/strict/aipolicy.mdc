@@ -21,7 +21,9 @@ Rules for Cursor (Chat, Composer, and Agent mode) when working in this repositor
 - Do not add dependencies without explicit approval
 - Ask for clarification rather than guessing at intent
 - Do not create new files or public APIs without explicit approval
-- Do not propose changes to build, CI, or release configuration
+- Do not modify build, CI, or release configuration
+- Do not generate PR descriptions, review comments, or issue responses
+- If a task needs design decisions, stop and describe the options instead of choosing
 
 ## Testing
 

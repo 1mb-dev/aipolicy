@@ -9,8 +9,10 @@ Project-wide instructions for GitHub Copilot. These rules apply to code completi
 - Keep changes scoped to the current task
 - Do not add dependencies without explicit approval
 - Ask for clarification rather than guessing at intent
+- Do not create new files or public APIs without explicit approval
+- Do not modify build, CI, or release configuration
 - Do not generate PR descriptions, review comments, or issue responses
-- Do not create new public APIs without explicit approval
+- If a task needs design decisions, stop and describe the options instead of choosing
 
 ## Testing
 
