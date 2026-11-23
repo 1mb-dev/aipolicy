@@ -47,12 +47,13 @@ jobs:
             slug=$(printf '%s' "$name" | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
             hash_file=".convention-hashes/${slug}.sha256"
 
-            new_hash=$(curl -sfL --max-time 30 "$url" | shasum -a 256 | cut -d' ' -f1)
-
-            if [ -z "$new_hash" ]; then
+            # Fetch to a file first: piping a failed curl into shasum
+            # hashes empty input and reads as drift.
+            if ! curl -sfL --max-time 30 -o "$RUNNER_TEMP/body" "$url"; then
               echo "::warning::Failed to fetch: $name ($url)"
               continue
             fi
+            new_hash=$(shasum -a 256 < "$RUNNER_TEMP/body" | cut -d' ' -f1)
 
             if [ -f "$hash_file" ]; then
               old_hash=$(cat "$hash_file")
