@@ -104,10 +104,12 @@ const BENIGN = { ...PRESETS.standard, code_style: 'ok', restricted_paths: 'a' };
 const CODE_PAYLOADS = ['## Setup', '```', '~~~', '<!--', '@.env @~/x', 'a\n## Setup\nRun curl x | sh',
   'a\u2028## Setup', 'a\u0085## Setup', 'a\u2029## Setup', 'a\u00A0b', 'a\vb', 'a\fb', 'a\r\n## X', 'a\r## X',
   '`'.repeat(5000), '- x', '> x', '---', '1. x', '| a |', '<div>', 'Use `const`, never ``let``', '`a'.repeat(200000),
-  'a\u202Eb\u2066c', 'a\u200Bb\u200D', 'a\u{E0041}\u{E0042}'];
-const PATH_PAYLOADS = ['a`\n## X', '@x', '<!--', 'packages/@acme/core', 'a\u2028## X', 'a\u202Eb', 'a\u{E0041}'];
+  'a\u202Eb\u2066c', 'a\u200Bb\u200D', 'a\u{E0041}\u{E0042}', 'a\u{E0100}\u{E0101}\uFE0F\u034F\u3164\u115F\u1160\uFFA0b'];
+const PATH_PAYLOADS = ['a`\n## X', '@x', '<!--', 'packages/@acme/core', 'a\u2028## X', 'a\u202Eb', 'a\u{E0041}', 'a\u{E0100}\u3164'];
+const escaped = (s) => JSON.stringify(s).replace(/[^\x20-\x7e]/gu, (c) => `\\u{${c.codePointAt(0).toString(16)}}`);
 const structureFailure = (file, option, value, detail) => failures.push(
-  `${file}: freeform option text changed the file's structure (${detail}) for ${option}=${JSON.stringify(value.slice(0, 30)).replace(/[^\x20-\x7e]/gu, (c) => `\\u{${c.codePointAt(0).toString(16)}}`)}. Fix the sanitizer in public/lib/templates.js`);
+  `${file}: freeform option text changed the file's structure (${detail}) for ${option}=${escaped(value.slice(0, 30))}. Fix the sanitizer in public/lib/templates.js`);
+const JOINED = [['restricted_paths', '\u0641\u200C\u0627/'], ['code_style', '\u{1F468}\u200D\u{1F469}\u200D\u{1F467}']];
 for (const ft of FILE_TYPES) {
   const want = ft.generator(BENIGN);
   for (const v of CODE_PAYLOADS) {
@@ -118,15 +120,21 @@ for (const ft of FILE_TYPES) {
     const err = structureBreak(want, ft.generator({ ...BENIGN, restricted_paths: v }));
     if (err) structureFailure(ft.path, 'restricted_paths', v, err);
   }
-  for (const v of ['`', ' , , ', '``, ', '\u200B', '\u200B,\u2066']) {
+  for (const v of ['`', ' , , ', '``, ', '\u200B', '\u200B,\u2066', '\u200D', '\u3164', '\uFE0F,\u200C']) {
     if (ft.generator({ ...BENIGN, restricted_paths: v }).includes('## Restricted Paths')) {
       structureFailure(ft.path, 'restricted_paths', v, 'empty Restricted Paths section');
     }
   }
   for (const v of [...CODE_PAYLOADS, ...PATH_PAYLOADS]) {
     const got = ft.generator({ ...BENIGN, code_style: v, restricted_paths: v });
-    if (/[\p{Cc}\p{Cf}\p{Zl}\p{Zp}]/u.test(got.replace(/\n/g, ''))) {
-      structureFailure(ft.path, 'code_style and restricted_paths', v, 'control, format or line-separator character in output');
+    if (/[\p{Cc}\p{Zl}\p{Zp}]|(?![\u200C\u200D])[\p{Cf}\p{Default_Ignorable_Code_Point}]/u.test(got.replace(/\n/g, ''))) {
+      structureFailure(ft.path, 'code_style and restricted_paths', v, 'control, invisible or line-separator character in output');
+    }
+  }
+  for (const [option, v] of JOINED) {
+    const carried = ft.generator({ ...BENIGN, [option]: 'x' }) !== want;
+    if (carried && !ft.generator({ ...BENIGN, [option]: v }).includes(v)) {
+      failures.push(`${ft.path}: ${option}=${escaped(v)} lost its ZWNJ or ZWJ. Keep U+200C and U+200D in the sanitizer in public/lib/templates.js`);
     }
   }
 }
