@@ -138,6 +138,44 @@ for (const [name, bad] of Object.entries(STRUCTURE_CONTROLS)) {
   }
 }
 
+// Claude Code reads only CLAUDE.md when both files exist; AGENTS.md loads through an
+// @AGENTS.md line outside any code fence or HTML comment.
+function importsAgents(md) {
+  let fence = null;
+  let comment = false;
+  for (const line of lines(md)) {
+    if (comment) {
+      if (line.includes('-->')) comment = false;
+      continue;
+    }
+    const f = line.match(/^(`{3,}|~{3,})/);
+    if (fence) {
+      if (f && f[1][0] === fence[0] && f[1].length >= fence.length) fence = null;
+      continue;
+    }
+    if (f) { fence = f[1]; continue; }
+    if (line === '@AGENTS.md') return true;
+    if (line.includes('<!--') && !line.includes('-->')) comment = true;
+  }
+  return false;
+}
+const claudeFile = FILE_TYPES.find((ft) => ft.key === 'claude');
+for (const [name, opts] of Object.entries(ALL)) {
+  for (const mode of ['separate', 'symlink']) {
+    if (!importsAgents(claudeFile.generator({ ...opts, claude_handling: mode }))) {
+      failures.push(`${name} (${mode}): CLAUDE.md must import AGENTS.md: Claude Code reads only CLAUDE.md when both exist`);
+    }
+  }
+}
+const IMPORT_CONTROLS = {
+  'fenced import': '# CLAUDE.md\n\n```text\n@AGENTS.md\n```\n',
+  'commented import': '# CLAUDE.md\n\n<!--\n@AGENTS.md\n-->\n',
+  'pointer sentence': '# CLAUDE.md\n\nAll rules from AGENTS.md apply.\n',
+};
+for (const [name, bad] of Object.entries(IMPORT_CONTROLS)) {
+  if (importsAgents(bad)) failures.push(`importsAgents accepted a file without a live import (${name}). Fix the check in scripts/test-presets.js`);
+}
+
 if (failures.length) {
   for (const f of failures.slice(0, 20)) console.error(f);
   if (failures.length > 20) console.error(`... ${failures.length - 20} more`);

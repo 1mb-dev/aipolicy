@@ -1,11 +1,10 @@
 # CLAUDE.md
 
-Instructions for Claude Code. All rules from AGENTS.md apply.
+@AGENTS.md
 
 ## Behavior
 
 - Keep changes minimal and focused
-- Verify your changes work before submitting
 - When uncertain, ask rather than assume
 - Add `Assisted-by: Claude` trailer to commit messages
 

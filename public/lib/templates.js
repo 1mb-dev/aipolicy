@@ -297,51 +297,24 @@ export function generateClaude(opts) {
   if (opts.claude_handling === 'symlink') {
     return `# CLAUDE.md
 
-This file can be replaced with a symlink to AGENTS.md:
+@AGENTS.md
 
-\`\`\`bash
-ln -sf AGENTS.md CLAUDE.md
-\`\`\`
-
-All rules in AGENTS.md apply.
+<!-- Or replace this file with a symlink: ln -sf AGENTS.md CLAUDE.md -->
 ${FOOTER}`;
   }
 
   let md = `# CLAUDE.md
 
-Instructions for Claude Code. All rules from AGENTS.md apply.
+@AGENTS.md
 
-`;
-
-  if (opts.test_reqs === 'required-before-merge') {
-    md += `## Testing
-
-Run the full test suite before proposing changes. Do not submit with failing tests.
-
-`;
-  }
-
-  if (opts.restricted_paths) {
-    md += `## Restricted
-
-Do not read or modify files listed under Restricted Paths in AGENTS.md.
-
-`;
-  }
-
-  md += `## Behavior
+## Behavior
 
 - Keep changes minimal and focused
-- Verify your changes work before submitting
 - When uncertain, ask rather than assume
 `;
 
   if (opts.disclosure === 'required') {
     md += `- Add \`Assisted-by: Claude\` trailer to commit messages\n`;
-  }
-
-  if (opts.ai_usage === 'restricted') {
-    md += `\n## Scope\n\n- Do not create new files without explicit instruction\n- Do not modify build, CI, or release configuration\n- If a task needs design decisions, stop and describe the options instead of choosing\n`;
   }
 
   md += FOOTER;
