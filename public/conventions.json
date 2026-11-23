@@ -7,25 +7,29 @@
       "name": "AGENTS.md Specification",
       "url": "https://agents.md",
       "type": "specification",
-      "description": "The AGENTS.md convention for AI coding agent instructions. 60k+ repos. Stewarded by the Agentic AI Foundation under the Linux Foundation."
+      "description": "The AGENTS.md convention for AI coding agent instructions. 60k+ repos. Stewarded by the Agentic AI Foundation under the Linux Foundation.",
+      "monitor": false
     },
     {
       "name": "Linux Foundation Generative AI Policy",
       "url": "https://www.linuxfoundation.org/legal/generative-ai",
       "type": "guidance",
-      "description": "Linux Foundation policy on AI-generated contributions: licensing compliance, attribution, and third-party content handling."
+      "description": "Linux Foundation policy on AI-generated contributions: licensing compliance, attribution, and third-party content handling.",
+      "monitor": false
     },
     {
       "name": "OpenSSF Guide for AI Code Assistant Instructions",
       "url": "https://best.openssf.org/Security-Focused-Guide-for-AI-Code-Assistant-Instructions.html",
       "type": "guidance",
-      "description": "Security-focused guidance for configuring AI coding assistants. Covers secure coding prompts, supply chain safety, and language-specific rules."
+      "description": "Security-focused guidance for configuring AI coding assistants. Covers secure coding prompts, supply chain safety, and language-specific rules.",
+      "monitor": false
     },
     {
       "name": "ASF Generative Tooling Guidance",
       "url": "https://www.apache.org/legal/generative-tooling.html",
       "type": "guidance",
-      "description": "Apache Software Foundation policy on AI-generated contributions. Requires license compatibility and recommends Generated-by commit trailers."
+      "description": "Apache Software Foundation policy on AI-generated contributions. Requires license compatibility and recommends Generated-by commit trailers.",
+      "monitor": false
     },
     {
       "name": "Open Source AI Definition (OSAID)",
@@ -38,7 +42,8 @@
       "name": "CNCF: Sustaining Open Source in the Age of Generative AI",
       "url": "https://www.cncf.io/blog/2026/03/10/sustaining-open-source-in-the-age-of-generative-ai/",
       "type": "ecosystem",
-      "description": "How CNCF projects handle AI contributions. Covers shared governance patterns, disclosure, and maintainer capacity."
+      "description": "How CNCF projects handle AI contributions. Covers shared governance patterns, disclosure, and maintainer capacity.",
+      "monitor": false
     },
     {
       "name": "Open Source AI Contribution Policies",
