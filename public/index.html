@@ -6,13 +6,13 @@
     No frameworks. No build step.
 
     View humans.txt for credits.
-    View source -- it's meant to be read.
+    View source. It's meant to be read.
 -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>aipolicy -- Generate AI Policy Files for Your Repository</title>
+  <title>aipolicy &middot; Generate AI policy files for your repository</title>
   <meta name="description" content="Create AI policy and tool config files (AI_POLICY, AGENTS, CLAUDE, Copilot, Cursor) for your repository. No install, no sign-up.">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'none';">
   <meta name="theme-color" content="#2563eb">
@@ -26,14 +26,14 @@
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="aipolicy -- Generate AI Policy Files for Your Repository">
+  <meta property="og:title" content="aipolicy &middot; Generate AI policy files for your repository">
   <meta property="og:description" content="Create AI policy and tool config files (AI_POLICY, AGENTS, CLAUDE, Copilot, Cursor) for your repository. No install, no sign-up.">
   <meta property="og:url" content="https://aipolicy.1mb.dev/">
   <meta property="og:image" content="https://aipolicy.1mb.dev/assets/og-image.png">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="aipolicy -- Generate AI Policy Files for Your Repository">
+  <meta name="twitter:title" content="aipolicy &middot; Generate AI policy files for your repository">
   <meta name="twitter:description" content="Create AI policy and tool config files (AI_POLICY, AGENTS, CLAUDE, Copilot, Cursor) for your repository. No install, no sign-up.">
   <meta name="twitter:image" content="https://aipolicy.1mb.dev/assets/og-image.png">
 
@@ -96,7 +96,7 @@
         </div>
       </div>
 
-      <h1>Generate AI Policy Files</h1>
+      <h1>Generate AI policy files</h1>
       <p class="subtitle">AI_POLICY + AGENTS + CLAUDE + Copilot + Cursor for your repository. No install.</p>
     </header>
 
@@ -129,11 +129,11 @@
 
         <div class="preview-pane">
           <button type="button" class="copy-btn" aria-label="Copy file content"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5.5" y="5.5" width="9" height="9" rx="1.5"/><path d="M10.5 5.5V3a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 3v6A1.5 1.5 0 003 10.5h2.5"/></svg> <span class="copy-label">Copy</span></button>
-          <textarea id="panel-policy" class="preview-content" role="tabpanel" aria-labelledby="tab-policy" aria-label="AI_POLICY.md content -- editable" spellcheck="false"></textarea>
-          <textarea id="panel-agents" class="preview-content" role="tabpanel" aria-labelledby="tab-agents" aria-label="AGENTS.md content -- editable" spellcheck="false" hidden></textarea>
-          <textarea id="panel-claude" class="preview-content" role="tabpanel" aria-labelledby="tab-claude" aria-label="CLAUDE.md content -- editable" spellcheck="false" hidden></textarea>
-          <textarea id="panel-copilot" class="preview-content" role="tabpanel" aria-labelledby="tab-copilot" aria-label="copilot-instructions.md content -- editable" spellcheck="false" hidden></textarea>
-          <textarea id="panel-cursor" class="preview-content" role="tabpanel" aria-labelledby="tab-cursor" aria-label="aipolicy.mdc content -- editable" spellcheck="false" hidden></textarea>
+          <textarea id="panel-policy" class="preview-content" role="tabpanel" aria-labelledby="tab-policy" aria-label="AI_POLICY.md content, editable" spellcheck="false"></textarea>
+          <textarea id="panel-agents" class="preview-content" role="tabpanel" aria-labelledby="tab-agents" aria-label="AGENTS.md content, editable" spellcheck="false" hidden></textarea>
+          <textarea id="panel-claude" class="preview-content" role="tabpanel" aria-labelledby="tab-claude" aria-label="CLAUDE.md content, editable" spellcheck="false" hidden></textarea>
+          <textarea id="panel-copilot" class="preview-content" role="tabpanel" aria-labelledby="tab-copilot" aria-label="copilot-instructions.md content, editable" spellcheck="false" hidden></textarea>
+          <textarea id="panel-cursor" class="preview-content" role="tabpanel" aria-labelledby="tab-cursor" aria-label="aipolicy.mdc content, editable" spellcheck="false" hidden></textarea>
         </div>
 
         <div aria-live="polite" class="sr-only" id="copy-status"></div>
@@ -154,7 +154,7 @@
         <div class="customize-panel-inner">
           <!-- AI Tool Usage -->
           <div class="option-group">
-            <div class="option-group-title">AI Tool Usage</div>
+            <div class="option-group-title">AI tool usage</div>
 
             <div class="option-row">
               <label for="opt-ai-usage">Usage policy</label>
@@ -209,7 +209,7 @@
 
           <!-- Agent Rules -->
           <div class="option-group">
-            <div class="option-group-title">Agent Rules</div>
+            <div class="option-group-title">Agent rules</div>
 
             <div class="option-row">
               <label for="opt-code-style">Code style enforcement</label>
@@ -263,10 +263,8 @@
       <!-- Zone 3: Convention Explainer -->
       <article class="explainer" aria-label="About AI policy files">
         <h2>What is AI_POLICY.md?</h2>
-        <p>A convention for repositories to declare how AI tools interact with their codebase -- which tools are permitted, how AI-generated code is handled, and training data preferences.</p>
+        <p>A convention for repositories to declare how AI tools interact with their codebase: which tools are permitted, how AI-generated code is handled, and training data preferences.</p>
 
-        <h2>Who's adopting this?</h2>
-        <p>Projects like <a href="https://github.com/cloudnative-pg/cloudnative-pg" target="_blank" rel="noopener">CloudNativePG</a>, <a href="https://github.com/kyverno/kyverno" target="_blank" rel="noopener">Kyverno</a>, and <a href="https://github.com/kubewarden" target="_blank" rel="noopener">Kubewarden</a> ship AI policy files. Templates here track current patterns.</p>
 
         <h2>Why add AI policy files?</h2>
         <p>Sets expectations for contributors and gives maintainers a governance reference point.</p>
