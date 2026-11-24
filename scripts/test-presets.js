@@ -3,7 +3,7 @@
 // Generates every preset combination, writes to temp dir, runs markdownlint.
 // Run: node scripts/test-presets.js
 
-import { writeFileSync, mkdirSync, rmSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { execFileSync } from 'child_process';
@@ -251,6 +251,17 @@ for (const [name, combo] of Object.entries(ALL)) {
       if (!inert.includes(key) && !live) failures.push(`${name} (${cause}): ${key} changes no file, but inertOptions leaves it enabled`);
     }
   }
+}
+
+// main.js syncThemeColor reads each theme-color meta's scheme from its media
+const themeColors = [...readFileSync(join(root, 'public/index.html'), 'utf8').matchAll(/<meta\b[^>]*\bname="theme-color"[^>]*>/g)]
+  .map(([tag]) => ({ media: tag.match(/\bmedia="([^"]*)"/)?.[1], content: tag.match(/\bcontent="([^"]*)"/)?.[1] }));
+const lightMeta = themeColors.find((m) => m.media === '(prefers-color-scheme: light)');
+const manifestColor = JSON.parse(readFileSync(join(root, 'public/site.webmanifest'), 'utf8')).theme_color;
+if (themeColors.length !== 2 || !lightMeta || !themeColors.some((m) => m.media === '(prefers-color-scheme: dark)')) {
+  failures.push(`index.html needs one theme-color meta per media (prefers-color-scheme: light) and (prefers-color-scheme: dark), found ${JSON.stringify(themeColors)}`);
+} else if (lightMeta.content !== manifestColor) {
+  failures.push(`site.webmanifest theme_color ${manifestColor} differs from the light theme-color meta ${lightMeta.content} in index.html`);
 }
 
 if (failures.length) {

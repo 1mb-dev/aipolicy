@@ -423,6 +423,16 @@ function applyTheme(value) {
   } else {
     document.documentElement.setAttribute('data-theme', value);
   }
+  syncThemeColor(value);
+}
+
+// Exactly one theme-color meta matches: the chosen theme's, or the OS-driven pair on auto.
+function syncThemeColor(value) {
+  for (const meta of document.querySelectorAll('meta[name="theme-color"]')) {
+    if (meta.dataset.media === undefined) meta.dataset.media = meta.getAttribute('media');
+    const scheme = meta.dataset.media.includes('dark') ? 'dark' : 'light';
+    meta.setAttribute('media', value === 'auto' ? meta.dataset.media : (scheme === value ? 'all' : 'not all'));
+  }
 }
 
 function updateToggleState(toggle, active) {

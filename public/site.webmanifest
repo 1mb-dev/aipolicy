@@ -4,7 +4,7 @@
   "description": "Generate AI policy files for your repository",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#2563eb",
+  "theme_color": "#fafafa",
   "background_color": "#fafafa",
   "icons": [
     {
