@@ -152,6 +152,11 @@ body {
    Layout
    ============================================ */
 
+.noscript-msg {
+  padding: 2rem;
+  text-align: center;
+}
+
 .container {
   max-width: var(--max-width);
   margin: 0 auto;
@@ -456,10 +461,6 @@ body {
   font-weight: 500;
   cursor: pointer;
   transition: color var(--transition-fast);
-}
-
-.customize-toggle:hover {
-  color: var(--color-text);
 }
 
 .customize-toggle:focus-visible {
