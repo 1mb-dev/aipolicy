@@ -481,7 +481,7 @@ Rules for Cursor (Chat, Composer, and Agent mode) when working in this repositor
 
 // Single source of truth for which files the generator emits.
 // Build scripts (generate-presets, test-presets, validate-presets) iterate over this.
-// At 3+ tools, refactor main.js + index.html to be data-driven from this list too.
+// main.js reads it too; index.html needs one tab-<key> and panel-<key> per entry.
 //
 // `path` is the canonical repo-relative path (used inside the ZIP download).
 // `staticPath` is where the file is served under /presets/<preset>/ for curl.

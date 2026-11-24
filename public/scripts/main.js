@@ -3,7 +3,7 @@
 
 'use strict';
 
-import { PRESETS, LABELS, generateAiPolicy, generateAgents, generateClaude, generateCopilot, generateCursor } from '../lib/templates.js';
+import { PRESETS, LABELS, FILE_TYPES } from '../lib/templates.js';
 import { createZip } from '../lib/zip.js';
 
 // ============================================
@@ -26,14 +26,14 @@ const state = {
   modified: false,
 };
 
-function getGeneratedFiles() {
-  return {
-    policy: generateAiPolicy(state.options),
-    agents: generateAgents(state.options),
-    claude: generateClaude(state.options),
-    copilot: generateCopilot(state.options),
-    cursor: generateCursor(state.options),
-  };
+const TAB_KEYS = FILE_TYPES.map((f) => f.key);
+const FILE_NAMES = Object.fromEntries(FILE_TYPES.map((f) => [f.key, f.path.split('/').pop()]));
+
+function tabParts(key) {
+  const tab = document.getElementById(`tab-${key}`);
+  const panel = document.getElementById(`panel-${key}`);
+  if (!tab || !panel) throw new Error(`index.html has no tab-${key} or panel-${key} for file type "${key}"`);
+  return { tab, panel };
 }
 
 // ============================================
@@ -41,17 +41,8 @@ function getGeneratedFiles() {
 // ============================================
 
 function renderPreview() {
-  const files = getGeneratedFiles();
-  const panels = {
-    policy: document.getElementById('panel-policy'),
-    agents: document.getElementById('panel-agents'),
-    claude: document.getElementById('panel-claude'),
-    copilot: document.getElementById('panel-copilot'),
-    cursor: document.getElementById('panel-cursor'),
-  };
-
-  for (const [key, el] of Object.entries(panels)) {
-    if (el) el.value = files[key];
+  for (const f of FILE_TYPES) {
+    tabParts(f.key).panel.value = f.generator(state.options);
   }
 }
 
@@ -76,34 +67,9 @@ function renderPresetCards() {
   }
 }
 
-const FILE_NAMES = {
-  policy: 'AI_POLICY.md',
-  agents: 'AGENTS.md',
-  claude: 'CLAUDE.md',
-  copilot: 'copilot-instructions.md',
-  cursor: 'aipolicy.mdc',
-};
-
 function renderTabs() {
-  const tabMap = {
-    policy: 'tab-policy',
-    agents: 'tab-agents',
-    claude: 'tab-claude',
-    copilot: 'tab-copilot',
-    cursor: 'tab-cursor',
-  };
-  const panelMap = {
-    policy: 'panel-policy',
-    agents: 'panel-agents',
-    claude: 'panel-claude',
-    copilot: 'panel-copilot',
-    cursor: 'panel-cursor',
-  };
-
-  for (const [key, tabId] of Object.entries(tabMap)) {
-    const tab = document.getElementById(tabId);
-    const panel = document.getElementById(panelMap[key]);
-    if (!tab || !panel) continue;
+  for (const key of TAB_KEYS) {
+    const { tab, panel } = tabParts(key);
 
     const isActive = key === state.activeTab;
     tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
@@ -198,7 +164,6 @@ function initPresets() {
 
 function initTabs() {
   const tabs = document.querySelectorAll('[role="tab"]');
-  const tabKeys = ['policy', 'agents', 'claude', 'copilot', 'cursor'];
 
   for (const tab of tabs) {
     tab.addEventListener('click', () => {
@@ -208,19 +173,19 @@ function initTabs() {
     });
 
     tab.addEventListener('keydown', (e) => {
-      const currentIdx = tabKeys.indexOf(state.activeTab);
+      const currentIdx = TAB_KEYS.indexOf(state.activeTab);
       let newIdx = -1;
 
-      if (e.key === 'ArrowRight') newIdx = (currentIdx + 1) % tabKeys.length;
-      else if (e.key === 'ArrowLeft') newIdx = (currentIdx - 1 + tabKeys.length) % tabKeys.length;
+      if (e.key === 'ArrowRight') newIdx = (currentIdx + 1) % TAB_KEYS.length;
+      else if (e.key === 'ArrowLeft') newIdx = (currentIdx - 1 + TAB_KEYS.length) % TAB_KEYS.length;
       else if (e.key === 'Home') newIdx = 0;
-      else if (e.key === 'End') newIdx = tabKeys.length - 1;
+      else if (e.key === 'End') newIdx = TAB_KEYS.length - 1;
 
       if (newIdx >= 0) {
         e.preventDefault();
-        state.activeTab = tabKeys[newIdx];
+        state.activeTab = TAB_KEYS[newIdx];
         renderTabs();
-        document.getElementById(`tab-${tabKeys[newIdx]}`).focus();
+        document.getElementById(`tab-${TAB_KEYS[newIdx]}`).focus();
       }
     });
   }
@@ -354,13 +319,7 @@ function initDownload() {
   if (!btn) return;
 
   btn.addEventListener('click', () => {
-    const zipFiles = [
-      { name: 'AI_POLICY.md', content: getFileContent('policy') },
-      { name: 'AGENTS.md', content: getFileContent('agents') },
-      { name: 'CLAUDE.md', content: getFileContent('claude') },
-      { name: '.github/copilot-instructions.md', content: getFileContent('copilot') },
-      { name: '.cursor/rules/aipolicy.mdc', content: getFileContent('cursor') },
-    ];
+    const zipFiles = FILE_TYPES.map((f) => ({ name: f.path, content: getFileContent(f.key) }));
 
     try {
       const blob = createZip(zipFiles);
@@ -375,7 +334,7 @@ function initDownload() {
       URL.revokeObjectURL(url);
 
       if (confirm) {
-        confirm.textContent = '3 files downloaded';
+        confirm.textContent = `${zipFiles.length} files downloaded`;
         confirm.classList.add('visible');
         setTimeout(() => {
           confirm.classList.remove('visible');
