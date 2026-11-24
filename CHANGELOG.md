@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.3.4 (2026-11-25)
+
+- `AGENTS.md`, `CLAUDE.md`, `copilot-instructions.md`, `aipolicy.mdc`: AI-generated code set to Requires attribution makes the `Assisted-by` trailer required.
+- `AGENTS.md` (Standard): Review drops "Minor fixes and doc updates follow the standard process."
+- Site: at 1100px and wider, Customize sits beside the preview and stays open.
+- Site: the tab header shows no scrollbars.
+- Site: controls that do not change the files are disabled, with a note.
+- Site: the collapsed Customize panel leaves the keyboard order.
+- Site: the theme toggle drops its border and background and underlines the selected theme; sentence-case labels; a code style placeholder; the download confirmation counts five files.
+- Site: the share image, structured data and meta tags name five files; the explainer lists the generated files; README's Cursor line drops the mode list.
+- Site: the browser toolbar takes the background of the chosen theme.
+
 ## v1.3.3 (2026-11-23)
 
 - `CLAUDE.md` imports `AGENTS.md` and drops the Testing, Restricted and Scope sections.
