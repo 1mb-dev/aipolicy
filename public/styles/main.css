@@ -37,7 +37,8 @@
 
   /* Transitions */
   --transition-fast: 150ms ease;
-  --transition-normal: 200ms ease;
+  --duration-normal: 200ms;
+  --transition-normal: var(--duration-normal) ease;
 }
 
 /* Dark mode -- system preference or explicit toggle */
@@ -77,11 +78,11 @@
    Reduced Motion
    ============================================ */
 
+/* Every transition takes its time from these tokens. 0.01ms, not 0: main.js waits on transitionend. */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.01ms !important;
+  :root {
+    --transition-fast: 0.01ms;
+    --duration-normal: 0.01ms;
   }
 }
 
@@ -721,5 +722,70 @@ body {
   .preview-content {
     min-height: 280px;
     max-height: 360px;
+  }
+}
+
+/* visibility waits out the max-height close; --transition-normal carries an easing and cannot be a delay */
+@media (width < 1100px) {
+  .customize-panel {
+    transition: max-height var(--transition-normal), visibility 0s linear var(--duration-normal);
+  }
+
+  .customize-panel:not(.open) {
+    visibility: hidden;
+  }
+
+  .customize-panel.open {
+    transition-delay: 0s;
+  }
+}
+
+@media (width >= 1100px) {
+  .container {
+    max-width: 1200px;
+  }
+
+  main {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    column-gap: 24px;
+    align-items: start;
+  }
+
+  .presets,
+  .explainer {
+    grid-column: 1 / -1;
+  }
+
+  .explainer {
+    max-width: 720px;
+  }
+
+  .workspace {
+    position: sticky;
+    top: 16px;
+  }
+
+  /* !important beats the inline max-height main.js sets while toggling */
+  .customize-panel {
+    grid-column: 2;
+    grid-row: 2;
+    max-height: none !important;
+    overflow: visible;
+  }
+
+  .customize-toggle {
+    display: none;
+  }
+
+  .option-row select,
+  .option-row input[type="text"] {
+    max-width: none;
+  }
+
+  .preview-content {
+    height: clamp(360px, calc(100dvh - 26rem), 640px);
+    max-height: none;
+    resize: none;
   }
 }
