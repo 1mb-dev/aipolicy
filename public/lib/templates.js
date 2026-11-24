@@ -307,7 +307,7 @@ export function generateAgents(opts) {
   }
 
   if (opts.review_reqs === 'significant-changes') {
-    md += `\n## Review\n\nChanges touching more than one module or any security-relevant code require human review. Minor fixes and doc updates follow the standard process.\n`;
+    md += `\n## Review\n\nChanges touching more than one module or any security-relevant code require human review.\n`;
   } else if (opts.review_reqs === 'all-ai-prs') {
     md += `\n## Review\n\nAll pull requests require human review before merging, regardless of scope.\n`;
   }
