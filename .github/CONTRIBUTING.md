@@ -19,4 +19,5 @@ Applies to site copy and meta, aria-labels, `public/llms.txt`, `README.md`, new 
 - No em-dash, no ` -- ` used as a dash, and no time words (current, currently, now, latest, recently, today). Use a full stop, colon or comma for a dash, ` · ` in `<title>`, and a version or date for a time word. `make check` fails on any of these in `public/*.html`, `public/llms.txt` and `README.md`.
 - Claim only what was run or can be cited.
 - Preset descriptions: the cards in `public/index.html` are canonical; README and llms.txt copy them verbatim.
+- The file list: README's "What it generates" is canonical; the explainer copies it verbatim.
 - Commits: `<type>(<scope>): <subject>`, subject only. CHANGELOG: one line per change.
