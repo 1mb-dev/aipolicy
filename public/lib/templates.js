@@ -231,6 +231,9 @@ You are responsible for every line of code you submit, regardless of how it was 
   return md;
 }
 
+// Tool files only. generateAiPolicy handles requires-attribution in its own branch.
+const disclosureOf = (o) => (o.ai_code === 'requires-attribution' ? 'required' : o.disclosure);
+
 export function generateAgents(opts) {
   let md = `# Agents
 
@@ -297,9 +300,9 @@ export function generateAgents(opts) {
 - Reference relevant issues when applicable
 `;
 
-  if (opts.disclosure === 'required') {
+  if (disclosureOf(opts) === 'required') {
     md += `- Include \`Assisted-by: <tool name>\` trailer on AI-assisted commits\n`;
-  } else if (opts.disclosure === 'encouraged') {
+  } else if (disclosureOf(opts) === 'encouraged') {
     md += `- Consider adding \`Assisted-by: <tool name>\` trailer on AI-assisted commits\n`;
   }
 
@@ -334,7 +337,7 @@ ${FOOTER}`;
 - When uncertain, ask rather than assume
 `;
 
-  if (opts.disclosure === 'required') {
+  if (disclosureOf(opts) === 'required') {
     md += `- Add \`Assisted-by: Claude\` trailer to commit messages\n`;
   }
 
@@ -391,9 +394,9 @@ Project-wide instructions for GitHub Copilot. These rules apply to code completi
 
   md += `\n## Commits\n\n- Use clear, descriptive commit messages\n- One logical change per commit\n`;
 
-  if (opts.disclosure === 'required') {
+  if (disclosureOf(opts) === 'required') {
     md += `- Include \`Assisted-by: GitHub Copilot\` trailer when Copilot was used\n`;
-  } else if (opts.disclosure === 'encouraged') {
+  } else if (disclosureOf(opts) === 'encouraged') {
     md += `- Consider adding \`Assisted-by: GitHub Copilot\` trailer when Copilot was used\n`;
   }
 
@@ -463,9 +466,9 @@ Rules for Cursor (Chat, Composer, and Agent mode) when working in this repositor
 
   md += `\n## Commits\n\n- Use clear, descriptive commit messages\n- One logical change per commit\n`;
 
-  if (opts.disclosure === 'required') {
+  if (disclosureOf(opts) === 'required') {
     md += `- Include \`Assisted-by: Cursor\` trailer on Cursor-assisted commits\n`;
-  } else if (opts.disclosure === 'encouraged') {
+  } else if (disclosureOf(opts) === 'encouraged') {
     md += `- Consider adding \`Assisted-by: Cursor\` trailer on Cursor-assisted commits\n`;
   }
 

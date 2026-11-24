@@ -220,6 +220,18 @@ for (const [name, opts] of Object.entries(ALL)) {
   }
 }
 
+// ai_code=requires-attribution makes the trailer required in every tool file, whatever disclosure says.
+const REQUIRED_TRAILER = { agents: 'Include `Assisted-by', claude: 'Add `Assisted-by: Claude`', copilot: 'Include `Assisted-by', cursor: 'Include `Assisted-by' };
+for (const ai_usage of ['permitted', 'permitted-with-review', 'restricted']) {
+  const opts = { ...PRESETS.standard, ai_usage, ai_code: 'requires-attribution', disclosure: 'encouraged', claude_handling: 'separate' };
+  for (const ft of FILE_TYPES.filter((f) => REQUIRED_TRAILER[f.key])) {
+    const md = ft.generator(opts);
+    if (!md.includes(REQUIRED_TRAILER[ft.key]) || md.includes('Consider adding')) {
+      failures.push(`ai_usage=${ai_usage}, ai_code=requires-attribution, disclosure=encouraged: ${ft.path} does not require the Assisted-by trailer`);
+    }
+  }
+}
+
 if (failures.length) {
   for (const f of failures.slice(0, 20)) console.error(f);
   if (failures.length > 20) console.error(`... ${failures.length - 20} more`);
