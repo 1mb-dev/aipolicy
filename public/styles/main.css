@@ -766,31 +766,23 @@ body {
     max-width: 1200px;
   }
 
-  main {
+  /* row 2 is 1fr so the spanning panel's extra height lands there; auto rows open a gap under Download */
+  .studio {
     display: grid;
     grid-template-columns: minmax(0, 1fr) 320px;
+    grid-template-rows: auto 1fr;
     column-gap: 24px;
     align-items: start;
   }
 
-  .presets,
-  .explainer {
-    grid-column: 1 / -1;
-  }
-
-  .explainer {
+  /* cap on the children, not the box: the border-top must run the full column width */
+  .explainer > * {
     max-width: 720px;
-  }
-
-  .workspace {
-    position: sticky;
-    top: 16px;
   }
 
   /* !important beats the inline max-height main.js sets while toggling */
   .customize-panel {
-    grid-column: 2;
-    grid-row: 2;
+    grid-row: span 2;
     max-height: none !important;
     overflow: visible;
   }
