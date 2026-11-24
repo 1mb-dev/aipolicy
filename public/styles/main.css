@@ -524,9 +524,10 @@ body {
 
 /* .open state managed by JS inline max-height for smooth transition */
 
+/* margin on the inner, not the panel: the closed panel (max-height 0) must add no space */
 .customize-panel-inner {
   padding: var(--spacing-element) var(--spacing-element) var(--spacing-section);
-  margin-top: 4px;
+  margin: 4px 0 var(--spacing-section);
   background: var(--color-preview-bg);
   border-radius: var(--radius-lg);
 }
