@@ -7,7 +7,7 @@ import { writeFileSync, mkdirSync, rmSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { execFileSync } from 'child_process';
-import { PRESETS, FILE_TYPES } from '../public/lib/templates.js';
+import { PRESETS, LABELS, FILE_TYPES, inertOptions } from '../public/lib/templates.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
@@ -228,6 +228,27 @@ for (const ai_usage of ['permitted', 'permitted-with-review', 'restricted']) {
     const md = ft.generator(opts);
     if (!md.includes(REQUIRED_TRAILER[ft.key]) || md.includes('Consider adding')) {
       failures.push(`ai_usage=${ai_usage}, ai_code=requires-attribution, disclosure=encouraged: ${ft.path} does not require the Assisted-by trailer`);
+    }
+  }
+}
+
+// inertOptions is exact: a listed option changes no file, every other option changes some file.
+const VALUES = (key) => LABELS[key] ? Object.keys(LABELS[key]) : key === 'claude_handling' ? ['separate', 'symlink'] : ['', 'x'];
+const renders = (opts) => FILE_TYPES.map((ft) => ft.generator(opts)).join('\0');
+const CAUSES = {
+  unforced: (o) => o,
+  prohibited: (o) => ({ ...o, ai_usage: 'prohibited' }),
+  attribution: (o) => ({ ...o, ai_code: 'requires-attribution', ai_usage: o.ai_usage === 'prohibited' ? 'restricted' : o.ai_usage }),
+};
+for (const [name, combo] of Object.entries(ALL)) {
+  for (const [cause, force] of Object.entries(CAUSES)) {
+    const opts = force(combo);
+    const inert = inertOptions(opts);
+    const base = renders(opts);
+    for (const key of Object.keys(PRESETS.standard).filter((k) => k !== 'ai_usage')) {
+      const live = VALUES(key).some((v) => renders({ ...opts, [key]: v }) !== base);
+      if (inert.includes(key) && live) failures.push(`${name} (${cause}): inertOptions lists ${key}, but it changes the files`);
+      if (!inert.includes(key) && !live) failures.push(`${name} (${cause}): ${key} changes no file, but inertOptions leaves it enabled`);
     }
   }
 }

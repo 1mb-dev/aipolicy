@@ -498,3 +498,13 @@ export const FILE_TYPES = [
   { key: 'copilot', path: '.github/copilot-instructions.md',   staticPath: 'copilot-instructions.md', generator: generateCopilot },
   { key: 'cursor',  path: '.cursor/rules/aipolicy.mdc',        staticPath: 'aipolicy.mdc',            generator: generateCursor },
 ];
+
+// Options that change no generated file under the given values. main.js disables their controls,
+// and its INERT_NOTES name options by label: change the notes with this list.
+export function inertOptions(opts) {
+  if (opts.ai_usage === 'prohibited') {
+    return Object.keys(PRESETS.standard).filter((k) => !['ai_usage', 'ai_cicd', 'training_optout'].includes(k));
+  }
+  if (opts.ai_code === 'requires-attribution') return ['disclosure'];
+  return [];
+}

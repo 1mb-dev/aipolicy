@@ -3,7 +3,7 @@
 
 'use strict';
 
-import { PRESETS, LABELS, FILE_TYPES } from '../lib/templates.js';
+import { PRESETS, LABELS, FILE_TYPES, inertOptions } from '../lib/templates.js';
 import { createZip } from '../lib/zip.js';
 
 // ============================================
@@ -90,6 +90,27 @@ function renderOptions() {
   }
 }
 
+const INERT_NOTES = {
+  prohibited: 'Usage policy is Prohibited. Only AI in CI/CD and Training data opt-out change the files. Other settings keep their values.',
+  attribution: 'AI-generated code is Requires attribution, so the trailer is required. AI disclosure has no effect.',
+};
+
+function renderInert() {
+  const inert = inertOptions(state.options);
+  for (const el of document.querySelectorAll('[data-param]')) {
+    const off = inert.includes(el.dataset.param);
+    el.disabled = off;
+    const ids = (el.getAttribute('aria-describedby') ?? '').split(' ').filter((id) => id && id !== 'inert-note');
+    if (off) ids.push('inert-note');
+    el.setAttribute('aria-describedby', ids.join(' '));
+  }
+  const note = document.getElementById('inert-note');
+  const text = inert.length === 0 ? '' : INERT_NOTES[state.options.ai_usage === 'prohibited' ? 'prohibited' : 'attribution'];
+  note.hidden = inert.length === 0;
+  // role=status: an identical rewrite can re-announce
+  if (note.textContent !== text) note.textContent = text;
+}
+
 function checkModified() {
   const base = PRESETS[state.preset];
   state.modified = Object.keys(base).some(k => state.options[k] !== base[k]);
@@ -115,6 +136,7 @@ function render() {
   renderPreview();
   renderPresetCards();
   renderTabs();
+  renderInert();
   updateUrl();
 }
 

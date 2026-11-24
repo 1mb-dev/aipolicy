@@ -566,6 +566,18 @@ body {
   transition: border-color var(--transition-fast);
 }
 
+.option-row select:disabled,
+.option-row input[type="text"]:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.option-note {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+}
+
 .option-row select:focus,
 .option-row input[type="text"]:focus {
   outline: 2px solid var(--color-accent);
