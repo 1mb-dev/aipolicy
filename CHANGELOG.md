@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.5 (2026-11-25)
+
+- Site: at 1100px and wider, the explainer sits under the preview, and the preview scrolls with the page.
+- Site: the Customize panel keeps 24px of space below it, above the explainer or the footer.
+- Site: the 404 page is one column at 1100px and wider.
+
 ## v1.3.4 (2026-11-25)
 
 - `AGENTS.md`, `CLAUDE.md`, `copilot-instructions.md`, `aipolicy.mdc`: AI-generated code set to Requires attribution makes the `Assisted-by` trailer required.
